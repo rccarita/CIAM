@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%- auth0:head -%}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://repositorio-temporal.s3.amazonaws.com/tailwind.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <title>BanBif - Banca Por Internet</title>
+</head>
+
+<style>
+    #widget {
+        display: none !important;
+    }
+
+    .text-slider-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        height: 70px;
+        margin-top: 20px;
+    }
+
+    .text-slider {
+        display: flex;
+        animation: slide 30s infinite ease-in-out;
+    }
+
+    .slide {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        flex-shrink: 0;
+        gap: 10px;
+        padding-left: 10px;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(0);
+        }
+
+        33% {
+            transform: translateX(-100%);
+        }
+
+        58% {
+            transform: translateX(-100%);
+        }
+
+        66% {
+            transform: translateX(-200%);
+        }
+
+        91% {
+            transform: translateX(-200%);
+        }
+
+        100% {
+            transform: translateX(-300%);
+        }
+    }
+
+    .text-slider {
+        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .fab-menu__toggle {
+        width: 59px;
+        height: 59px;
+        border-radius: 50%;
+        background: #925AF5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-style: none;
+        position: absolute;
+        bottom: 14px;
+        right: -1px;
+        z-index: 102;
+    }
+
+    .input-group {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .ml-46 {
+        margin-left: 46px;
+    }
+
+    .checkbox-input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .checkbox-label {
+        display: block;
+        height: 24px;
+        cursor: pointer;
+        padding-left: 34px;
+        background-image: url('https://repositorio-temporal.s3.amazonaws.com/checkbox.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .checkbox-input:checked+.checkbox-label {
+        background-image: url('https://repositorio-temporal.s3.amazonaws.com/checkbox-on.svg');
+    }
+
+    #page-info {
+        display: none;
+    }
+
+    .fab-menu__link:hover {
+        background-color: #BE9CF9;
+    }
+
+    @media (min-width: 1024px) {
+
+        .lg\:p-spacing-pop {
+            padding: 30px;
+        }
+    }
+</style>
+
+<body class="bg-[#141925]" cz-shortcut-listen="true">
+    {% if prompt.name == "login" %}
+    <div id="page-info">
+        Screen width:<span id="screen-width"></span><br>
+        Prompt name: {{prompt.name}}<br>
+        Prompt screen name: {{prompt.screen.name}}<br>
+        data-email:{{transaction.params.ext-dni}}<br>
+        Document referrer:<span id="document-referrer"></span>
+    </div>
+    <div
+        class="bg-main bg-no-repeat bg-cover bg-[#141925] lg:bg-none absolute top-0 left-0 w-full h-full z-0 lg:hidden">
+    </div>
+    <img class="w-[446px] h-[300px] absolute top-[-30px] left-[0px] z-1 pointer-events-none"
+        src="https://repositorio-temporal.s3.amazonaws.com/degradado.png" alt="Degradado Banbif">
+    <div class="grid min-h-[100vh] grid-cols-1 lg:grid-cols-12 relative z-3">
+        <div class="lg:col-span-7 h-full hidden lg:block">
+            <div class="h-full flex flex-col justify-between px-[96px] pb-6">
+                <div>
+                    <img class="w-[119px] h-[32px] mt-[54px] mb-[124px] z-10 relative"
+                        src="https://repositorio-temporal.s3.amazonaws.com/branding-inversed-on.svg" alt="Logo Banbif">
+                    <h1 class="text-xl font-bold text-left text-white font-lato mb-6">Banca por Internet Personas</h1>
+                    <img src="https://i.ytimg.com/vi/uBkS3Y2JAGE/maxresdefault.jpg" class="mb-6 w-full h-[646px]" alt="">
+                    <div class="text-slider-container">
+                        <div class="text-slider">
+                            <div class="slide">
+                                <img src="https://repositorio-temporal.s3.amazonaws.com/candado.svg"
+                                    alt="Icono de seguridad">
+                                <p class="font-medium text-neutral-light06 text-2xs">No compartas tus datos personales o
+                                    claves de acceso por email, teléfono, mensajes o
+                                    redes sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.</p>
+                            </div>
+                            <div class="slide">
+                                <img src="https://repositorio-temporal.s3.amazonaws.com/candado.svg"
+                                    alt="Icono de seguridad">
+                                <p class="font-medium text-neutral-light06 text-2xs">Mantén siempre actualizado tu
+                                    software de seguridad y antivirus en tus dispositivos
+                                    para prevenir riesgos.</p>
+                            </div>
+                            <div class="slide">
+                                <img src="https://repositorio-temporal.s3.amazonaws.com/candado.svg"
+                                    alt="Icono de seguridad">
+                                <p class="font-medium text-neutral-light06 text-2xs">No ingreses a enlaces sospechosos o
+                                    no verificados que recibas a través de correos o
+                                    mensajes de texto.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full flex justify-center mt-6"><img
+                            src="https://repositorio-temporal.s3.amazonaws.com/Dots.svg" alt=""></div>
+                </div>
+                <p class="text-neutral-light02 font-medium text-3xs mt-[80px]">
+                    © 2024 BanBif - Todos los derechos reservados.<br>Banco Interamericano de Finanzas S.A. - RUC
+                    20101036813
+                </p>
+            </div>
+        </div>
+        <div class="lg:col-span-5 lg:h-full lg:bg-[#1C212D]">
+            <div class="flex flex-col justify-between h-full">
+                <img class="w-[148.75px] h-[40px] lg:hidden mt-[40px] mb-[244px] ml-6"
+                    src="https://repositorio-temporal.s3.amazonaws.com/branding-inversed-on.svg" alt="Logo Banbif">
+                <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full">
+                    <div class="py-6 px-4 lg:flex lg:flex-col lg:justify-between lg:h-full lg:max-w-[470px] lg:mx-auto">
+                        <div>
+                            <h1
+                                class="lg:text-lg text-[24px] font-semibold text-center text-white font-lato mb-5 lg:mt-[210px]">
+                                Ingresa a tu cuenta
+                            </h1>
+                            <div
+                                class="flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
+                                <img class="w-[24px] h-[24px] ml-[9px]"
+                                    src="https://repositorio-temporal.s3.amazonaws.com/ico-user.svg"
+                                    alt="Icono de usuario">
+                                <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
+                                    id="dni_" type="number" autocomplete="off" placeholder=""
+                                    style="padding-left: 5px; margin-top: 10px" required="required"
+                                    oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);">
+                                <label
+                                    class="text-neutral-light font-medium text-3xs ml-12 ml-46 label-input h-auto bg-transparent"
+                                    for="dni_">Documento de identidad</label>
+                            </div>
+                            <div class="w-full h-auto flex items-center gap-6 input-group mt-4 mb-6">
+                                <input class="absolute opacity-0 peer checkbox-input" id="checkboxCustom"
+                                    type="checkbox">
+                                    <!--<label class="checkbox-label text-neutral-light02" for="checkboxCustom">
+                                    Recordar documento-->
+                                </label>
+                            </div>
+                            <div
+                                class="flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
+                                <img class="w-[24px] h-[24px] ml-[9px]"
+                                    src="https://repositorio-temporal.s3.amazonaws.com/ico-password.svg"
+                                    alt="Icono de usuario">
+                                <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
+                                    id="clave" type="password" autocomplete="off" placeholder="" oncopy="return false"
+                                    onpaste="return false" oncut="return false"
+                                    style="padding-left: 5px; margin-top: 10px" required="required"><label
+                                    class="text-neutral-light font-medium text-3xs ml-46 mt-[0px] label-input h-auto bg-transparent"
+                                    for="clave">Clave digital</label>
+                                <div class="relative top-0 cursor-pointer right-[12px]" id="button-view-password">
+                                    <svg class="eye-closed" width="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M2.21967 2.21967C1.9534 2.48594 1.9292 2.9026 2.14705 3.19621L2.21967 3.28033L6.25424 7.3149C4.33225 8.66437 2.89577 10.6799 2.29888 13.0644C2.1983 13.4662 2.4425 13.8735 2.84431 13.9741C3.24613 14.0746 3.6534 13.8305 3.75399 13.4286C4.28346 11.3135 5.59112 9.53947 7.33416 8.39452L9.14379 10.2043C8.43628 10.9258 8 11.9143 8 13.0046C8 15.2138 9.79086 17.0046 12 17.0046C13.0904 17.0046 14.0788 16.5683 14.8004 15.8608L20.7197 21.7803C21.0126 22.0732 21.4874 22.0732 21.7803 21.7803C22.0466 21.5141 22.0708 21.0974 21.8529 20.8038L21.7803 20.7197L15.6668 14.6055L15.668 14.604L14.4679 13.4061L11.598 10.5368L11.6 10.536L8.71877 7.65782L8.72 7.656L7.58672 6.52549L3.28033 2.21967C2.98744 1.92678 2.51256 1.92678 2.21967 2.21967ZM10.2041 11.2655L13.7392 14.8006C13.2892 15.2364 12.6759 15.5046 12 15.5046C10.6193 15.5046 9.5 14.3853 9.5 13.0046C9.5 12.3287 9.76824 11.7154 10.2041 11.2655ZM12 5.5C10.9997 5.5 10.0291 5.64807 9.11109 5.925L10.3481 7.16119C10.8839 7.05532 11.4364 7 12 7C15.9231 7 19.3099 9.68026 20.2471 13.4332C20.3475 13.835 20.7546 14.0794 21.1565 13.9791C21.5584 13.8787 21.8028 13.4716 21.7024 13.0697C20.5994 8.65272 16.6155 5.5 12 5.5ZM12.1947 9.00928L15.996 12.81C15.8942 10.7531 14.2472 9.10764 12.1947 9.00928Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                    <svg class="eye-open" style="display: none" width="24" viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9ZM12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 14.7614 14.7614 17 12 17ZM12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5Z"
+                                            fill="currentColor" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="w-full h-[auto] flex items-center justify-end gap-6 mt-4 mb-6">
+                                <div class="font-bold text-2xs cursor-pointer text-interaction-light02 hover:text-[#E9DEFD] active:text-[#925AF5]"
+                                    id="btnModalLoginRC">
+                                    ¿Olvidaste tu contraseña?
+                                </div>
+                            </div>
+                            <div class="w-full h-[auto] flex items-center justify-center mb-6">
+                                <button id="submitButton" disabled
+                                    class="disabled:bg-gray-400 disabled:text-gray-300 bg-light-dark02 text-neutral-light font-bold rounded-xs h-[56px] w-full">
+                                    Ingresar
+                                </button>
+                            </div>
+                            <div class="w-full h-[auto] flex items-center justify-center gap-1 relative">
+                                <span class="font-medium text-2xs text-neutral-light06">¿No tienes una cuenta?</span>
+                                <div class="font-bold text-2xs cursor-pointer text-interaction-light02 hover:text-[#E9DEFD] active:text-[#925AF5]"
+                                    id="btnModalLoginRA">
+                                    Regístrate aquí
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="h-[88px] w-full relative">
+                                <nav class="fab-menu" id="fab-menu">
+                                    <div class="fab-menu__backdrop"></div>
+                                    <ul class="fab-menu__list">
+                                        <li class="fab-menu__item">
+                                            <div class="fab-menu__descript">
+                                                <b>Atención por Whatsapp</b><span>Conversa con un asesor</span>
+                                            </div>
+                                            <a class="fab-menu__link" href="https://wa.me/51988598380"
+                                                target="_blank"><img alt="whatsapp"
+                                                    src="https://repositorio-temporal.s3.amazonaws.com/whatsapp.svg"></a>
+                                        </li>
+                                        <li class="fab-menu__item">
+                                            <div class="fab-menu__descript"><b>Atención en Provincia</b><span>(01) 0 81
+                                                    00456</span></div>
+                                            <a class="fab-menu__link" href="#"
+                                                onclick="handlePhoneClick('(01) 0 801 00 456')"><img alt="number"
+                                                    src="https://repositorio-temporal.s3.amazonaws.com/phone.svg"></a>
+                                        </li>
+                                        <li class="fab-menu__item">
+                                            <div class="fab-menu__descript"><b>Atención en Lima</b><span>(01) 631
+                                                    9000</span></div>
+                                            <a class="fab-menu__link" href="#"
+                                                onclick="handlePhoneClick('(01) 0 801 00 456')"><img alt="number"
+                                                    src="https://repositorio-temporal.s3.amazonaws.com/phone.svg"></a>
+                                        </li>
+                                        <li class="fab-menu__item">
+                                            <div class="fab-menu__descript">
+                                                <b>Atención presencial</b><span>Ubica nuestras oficinas</span>
+                                            </div>
+                                            <a class="fab-menu__link"
+                                                href="https://bancadigital.dev.banbif.com.pe/locate-us"><img alt="map"
+                                                    src="https://repositorio-temporal.s3.amazonaws.com/map.svg"></a>
+                                        </li>
+                                        <li class="fab-menu__item toggle"></li>
+                                    </ul>
+                                </nav>
+                                <div class="fab-menu__animation">Contáctanos</div>
+                                <button class="fab-menu__toggle" id="fab-button-toggle">
+                                    <img alt="contact"
+                                        src="https://repositorio-temporal.s3.amazonaws.com/support-white.svg">
+                                </button>
+                            </div>
+                            <p class="justify-center text-neutral-light02 text-center font-regular text-[14px]">
+                                Recuerda que para bloquear tus tarjetas y/o reportar cargos no reconocidos puedes llamar
+                                a la Banca
+                                Telefónica las 24hrs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden"
+        id="modals-login1">
+        <div class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md"
+            id="card-modal-login">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer" id="close-button-login1"
+                    src="https://repositorio-temporal.s3.amazonaws.com/close.svg" alt="">
+            </div>
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div class="font-bold text-md text-[#FFFFFF]">¿Olvidaste tu contraseña?</div>
+                    <div class="font-medium text-xs text-[#A9B0C1] w-full text-center">
+                        No te preocupes. Recupérala rápidamente en la Banbif App. Tu seguridad es nuestra prioridad.
+                    </div>
+                    <img id="qr-img" class="w-[198px] h-[198px] lg:block hidden" src="" alt="QR para descargar la app">
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <a id="download-btn"
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs lg:hidden text-center py-4"
+                        href="#" target="_blank">
+                        ¡Descárgala ahora mismo!
+                    </a>
+                    <button
+                        class="w-full h-[56px] bg-transparent lg:bg-[#925AF5] hover:bg-[#FFFFFF] hover:bg-opacity-10 lg:hover:bg-[#A87BF7] text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid lg:border-0"
+                        id="modals-login-entendido1">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden"
+        id="modals-login2">
+        <div class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md"
+            id="card-modal-login">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer" id="close-button-login2"
+                    src="https://repositorio-temporal.s3.amazonaws.com/close.svg" alt="">
+            </div>
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div class="font-bold text-md text-[#FFFFFF]">¡Regístrate ahora!</div>
+                    <div class="font-medium lg:text-xs text-2xs text-[#A9B0C1] w-full text-center">
+                        Por tu seguridad, para acceder a nuestra banca por internet, ingresa Banbif App y comienza a
+                        disfrutar de
+                        todos nuestros servicios digitales.
+                    </div>
+                    <img id="qr-img2" class="w-[198px] h-[198px] lg:block hidden" src="" alt="QR para descargar la app">
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <a id="download-btn2"
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs lg:hidden text-center py-4"
+                        href="#" target="_blank">
+                        ¡Descárgala ahora mismo!
+                    </a>
+                    <button
+                        class="w-full h-[56px] bg-transparent lg:bg-[#925AF5] hover:bg-[#FFFFFF] hover:bg-opacity-10 lg:hover:bg-[#A87BF7] text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid lg:border-0"
+                        id="modals-login-entendido2">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden"
+        id="modals-error">
+        <div class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md"
+            id="card-modal-error">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer close-icon"
+                    src="https://repositorio-temporal.s3.amazonaws.com/close.svg" alt="">
+            </div>
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div class="font-bold text-md text-[#FFFFFF]">Revisa tus datos</div>
+                    <div id="error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                        Por favor, verifica tus datos de acceso y vuelve a intentarlo.
+                    </div>
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <button
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4"
+                        id="close-button-entendido">
+                        Reintentar
+                    </button>
+                    <button
+                        class="w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
+                        Recuperar clave
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden"
+        id="modals-error-conexion">
+        <div class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md"
+            id="card-modal-error-conexion">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer close-icon"
+                    src="https://repositorio-temporal.s3.amazonaws.com/close.svg" alt="">
+            </div>
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div class="font-bold text-md text-[#FFFFFF]">Tienes problemas de conexión</div>
+                    <div id="error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                        Verifica tu conexión a internet e inténtalo de nuevo en unos minutos.
+                    </div>
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <button
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4 close-button-entendido">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="widget">{%- auth0:widget -%}</div>
+    {% else %}
+    <h1>Else</h1>
+    {%- auth0:widget -%} {% endif %}
+
+    <script>
+        var state_response = !1;
+        function toggleResponse() {
+            var e = document.getElementById("response");
+            e.classList.contains("hidden") ? (e.classList.add("flex"),
+                e.classList.remove("hidden")) : (e.classList.toggle("hidden"),
+                    e.classList.remove("flex"))
+        }
+        function onBackground(e) {
+            var e = document.getElementById(e)
+                , t = e.querySelectorAll("svg path")
+                , e = e.querySelector("span");
+            t[0].classList.toggle("hidden"),
+                e.classList.contains("text-neutral-light04") ? e.classList.replace("text-neutral-light04", "text-neutral-light06") : e.classList.replace("text-neutral-light06", "text-neutral-light04")
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            var e = document.getElementById("btnModalLoginRC")
+                , t = document.getElementById("btnModalLoginRA");
+            let s = document.getElementById("modals-login1")
+                , o = document.getElementById("modals-login2");
+            var a = document.getElementById("close-button-login1")
+                , n = document.getElementById("modals-login-entendido1")
+                , a = (a.addEventListener("click", () => {
+                    s.classList.toggle("hidden")
+                }
+                ),
+                    n.addEventListener("click", () => {
+                        s.classList.toggle("hidden")
+                    }
+                    ),
+                    e.addEventListener("click", () => {
+                        s.classList.toggle("hidden")
+                    }
+                    ),
+                    document.getElementById("close-button-login2"))
+                , n = document.getElementById("modals-login-entendido2");
+            a.addEventListener("click", () => {
+                o.classList.toggle("hidden")
+            }
+            ),
+                n.addEventListener("click", () => {
+                    o.classList.toggle("hidden")
+                }
+                ),
+                t.addEventListener("click", () => {
+                    o.classList.toggle("hidden")
+                }
+                )
+        }
+        ),
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll('input[type="number"], input[type="password"], .with-border-focus')?.forEach(function (t) {
+                    t.classList.contains("without-border-focus") || (t?.addEventListener("input", function () {
+                        var e = t.closest("div");
+                        t.value ? (e.classList.add("border-input-on"),
+                            e.classList.remove("border-input-off")) : (e.classList.remove("border-input-on"),
+                                e.classList.add("border-input-off"))
+                    }),
+                        t?.addEventListener("focus", function () {
+                            var e = t.closest("div");
+                            e.classList.add("border-focus-on"),
+                                e.classList.remove("border-input-off")
+                        }),
+                        t?.addEventListener("blur", function () {
+                            var e = t.closest("div");
+                            e.classList.remove("border-focus-on"),
+                                e.classList.remove("border-input-on"),
+                                e.classList.add("border-input-off"),
+                                t.value || e.classList.add("border-input-off")
+                        }),
+                        t?.addEventListener("click", function () {
+                            t.select()
+                        }))
+                })
+            })
+
+        let fabMenuToggle = document.getElementById("fab-button-toggle")
+            , fabMenuToggleIcon = document.querySelector("#fab-button-toggle img")
+            , fabMenu = document.getElementById("fab-menu")
+            , inputSearchLocation = (fabMenuToggle?.addEventListener("click", () => {
+                fabMenu?.classList.toggle("active"),
+                    fabMenuToggle?.classList.toggle("active"),
+                    fabMenuToggle.classList.contains("active") ? fabMenuToggleIcon.src = "https://repositorio-temporal.s3.amazonaws.com/close-white.svg" : fabMenuToggleIcon.src = "https://repositorio-temporal.s3.amazonaws.com/support-white.svg"
+            }
+            ))
+
+        document.getElementById('button-view-password').addEventListener('click', function () {
+            const passwordInput = document.getElementById('clave');
+            const eyeClosed = document.querySelector('.eye-closed');
+            const eyeOpen = document.querySelector('.eye-open');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeClosed.style.display = 'none';
+                eyeOpen.style.display = 'inline';
+            } else {
+                passwordInput.type = 'password';
+                eyeClosed.style.display = 'inline';
+                eyeOpen.style.display = 'none';
+            }
+        });
+
+        const dniInput = document.getElementById('dni_');
+        const claveInput = document.getElementById('clave');
+        const submitButton = document.getElementById('submitButton');
+
+        dniInput.addEventListener('input', checkInputs);
+        claveInput.addEventListener('input', checkInputs);
+
+        function checkInputs() {
+            const dniValue = dniInput.value.trim();
+            const claveValue = claveInput.value.trim();
+
+            if (dniValue.length === 8 && claveValue !== '') {
+                submitButton.disabled = false;
+                submitButton.classList.remove('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
+                submitButton.classList.add('bg-interaction-medium', 'text-neutral-light06');
+            } else {
+                submitButton.disabled = true;
+                submitButton.classList.add('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
+                submitButton.classList.remove('bg-interaction-medium', 'text-neutral-light06');
+            }
+        }
+        dniInput.addEventListener('input', checkInputs);
+        claveInput.addEventListener('input', checkInputs)
+
+        const errorMessages = {
+            "wrong-credentials": "Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de cuenta. Solo tienes 3 intentos.<br><br>Si no recuerdas tu clave, puedes recuperarla.",
+            "user-blocked": "Su cuenta ha sido bloqueada luego de múltiples intentos de inicio de sesión consecutivos. <br><br>Por favor, contacta con el soporte para desbloquearla.",
+        };
+
+        let hasShownError = false;
+
+        function showErrorModal(message) {
+            const modal = document.getElementById("modals-error");
+            const modalMessage = document.getElementById("error-message");
+
+            if (modal && modalMessage) {
+                modalMessage.innerHTML = message;
+                modal.classList.remove("hidden");
+            }
+        }
+
+        function hideErrorModal() {
+            const modalError = document.getElementById("modals-error");
+            const modalErrorConexion = document.getElementById("modals-error-conexion");
+
+            if (modalError) {
+                modalError.classList.add("hidden");
+            }
+
+            if (modalErrorConexion) {
+                modalErrorConexion.classList.add("hidden");
+            }
+        }
+
+
+        function checkAndDisplayErrors() {
+            const errorElements = document.querySelectorAll('[id^="error-element-"]');
+            let hasError = false;
+
+            errorElements.forEach((errorElement) => {
+                const errorCode = errorElement.getAttribute("data-error-code");
+                if (errorCode && errorMessages[errorCode]) {
+                    showErrorModal(errorMessages[errorCode]);
+                    errorElement.remove();
+                    hasError = true;
+                    hasShownError = true;
+                }
+            });
+
+            return hasError;
+        }
+
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    const hasError = checkAndDisplayErrors();
+
+                    if (hasError) {
+                        observer.disconnect();
+                        setTimeout(() => {
+                            hasShownError = false;
+                            observer.observe(targetNode, config);
+                        }, 1000);
+                    }
+                }
+            }
+        });
+
+        const targetNode = document.body;
+        const config = { childList: true, subtree: true };
+        observer.observe(targetNode, config);
+
+        document.getElementById('submitButton').addEventListener('click', function () {
+            const dniInput = document.getElementById('dni_').value;
+            const claveInput = document.getElementById('clave').value;
+            let errorMessage = "";
+
+            if (!navigator.onLine) {
+                showConnectionErrorModal();
+                return;
+            }
+
+            if (!dniInput) {
+                errorMessage += "El campo DNI es requerido. ";
+            }
+            if (!claveInput) {
+                errorMessage += "El campo Clave Digital es requerido.";
+            }
+
+            if (errorMessage) {
+                alert(errorMessage);
+                return;
+            }
+
+            console.log("Intentando iniciar sesión...");
+            $("input[name=username]").val(dniInput);
+            $("input[name=password]").val(claveInput);
+            $("button[name=action]").click();
+        });
+
+        document.querySelectorAll('.close-button-entendido').forEach(button => {
+            button.addEventListener('click', function () {
+                hideErrorModal();
+            });
+        });
+
+        document.querySelectorAll('.close-icon').forEach(icon => {
+            icon.addEventListener('click', function () {
+                hideErrorModal();
+            });
+        });
+
+        function showConnectionErrorModal() {
+            const modal = document.getElementById('modals-error-conexion');
+            modal.classList.remove('hidden');
+        }
+
+
+        const qrSources = {
+            android: 'https://repositorio-temporal.s3.amazonaws.com/QR_PlayStore(Google(Android)).png',
+            ios: 'https://repositorio-temporal.s3.amazonaws.com/QA_AppStore(Apple(iOS)).png',
+            huawei: 'https://repositorio-temporal.s3.amazonaws.com/QR_AppGallery(Huawei).png'
+        };
+
+        const downloadLinks = {
+            android: 'https://play.google.com/store/apps/details?id=pe.com.banBifBanking.icBanking.androidUI',
+            ios: 'https://apps.apple.com/pe/app/banbif-app/id1083203913',
+            huawei: 'https://appgallery.huawei.com/#/app/C101340137'
+        };
+
+        function getOS() {
+            const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+
+            if (/android/i.test(userAgent)) {
+                return 'android';
+            }
+
+            if (/iPad|iPhone|iPod/.test(userAgent) ||
+                (/Macintosh/i.test(userAgent) && !/Win/i.test(userAgent))) {
+                return 'ios';
+            }
+
+            if (/huawei/i.test(userAgent) || /harmony/i.test(userAgent)) {
+                return 'huawei';
+            }
+
+            return 'android';
+        }
+
+        function updateQRAndLink() {
+            const os = getOS();
+            const qrImg = document.getElementById('qr-img');
+            const downloadBtn = document.getElementById('download-btn');
+            qrImg.src = qrSources[os];
+            downloadBtn.href = downloadLinks[os];
+        }
+        function updateQRAndLinkModal2() {
+            const os = getOS();
+            const qrImg2 = document.getElementById('qr-img2');
+            const downloadBtn2 = document.getElementById('download-btn2');
+            qrImg2.src = qrSources[os];
+            downloadBtn2.href = downloadLinks[os];
+        }
+
+        window.onload = function () {
+            updateQRAndLink();
+            updateQRAndLinkModal2();
+        };
+
+        function handlePhoneClick(phoneNumber) {
+            var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                window.location.href = `tel:${phoneNumber}`;
+            } else {
+                window.open('https://wa.me/51988598380', '_blank');
+            }
+        }
+
+    </script>
+</body>
+
+</html>
