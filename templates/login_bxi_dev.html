@@ -479,9 +479,11 @@
 
             <div class="flex w-full flex-col gap-[40px] items-center">
                 <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
-                    <div id="ext-error-title" class="font-bold text-md text-[#FFFFFF] text-center">Es hora de actualizar tu Clave
+                    <div id="ext-error-title" class="font-bold text-md text-[#FFFFFF] text-center">Es hora de actualizar
+                        tu Clave
                         Digital</div>
-                    <div id="ext-error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                    <div id="ext-error-message"
+                        class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
                         Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca
                         Digital. Solo te tomará unos minutos.
                     </div>
@@ -875,26 +877,24 @@
             document.getElementById('modal').classList.add('hidden');
         }
 
-        // Función para actualizar el contenido del modal según el error
         function updateModalContent(extError, extDescription) {
             const modalTitle = document.getElementById('ext-error-title');
             const modalMessage = document.getElementById('ext-error-message');
             const actionButtonText = document.getElementById('ext-action-button-text');
 
-            // Cambiar el contenido basado en los parámetros
             if (extError === 'access_denied') {
                 if (extDescription === '002') {
                     modalTitle.textContent = 'Es hora de actualizar tu Clave Digital';
                     modalMessage.textContent = 'Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca Digital. Solo te tomará unos minutos.';
                     actionButtonText.textContent = 'Actualizar Clave Digital';
                 } else if (extDescription === '001') {
-                    modalTitle.textContent = 'Acción requerida para tu cuenta';
-                    modalMessage.textContent = 'Por favor, verifica los detalles de tu cuenta para continuar utilizando la Banca Digital.';
-                    actionButtonText.textContent = 'Verificar Cuenta';
+                    modalTitle.textContent = 'Tu acceso ha sido bloqueado por 24 horas';
+                    modalMessage.innerHTML = `La validación de tu identidad no se completó. Vuelve a intentarlo mañana.<br><br> Si necesitas ingresar a tu BanBif App con urgencia, visita nuestras oficinas para desbloquear tu acceso.`;
+                    actionButtonText.textContent = 'Ubícanos';
                 } else if (extDescription === '003') {
-                    modalTitle.textContent = 'Problema con la verificación';
-                    modalMessage.textContent = 'Hubo un error al intentar verificar tu identidad. Intenta de nuevo.';
-                    actionButtonText.textContent = 'Reintentar Verificación';
+                    modalTitle.textContent = 'Revisa tus datos';
+                    modalMessage.innerHTML = `Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de usuario. Solo tienes 3 intentos. <br><br> Si no recuerdas tu clave, puedes recuperarla.`;
+                    actionButtonText.textContent = 'Recuperar clave';
                 }
             }
         }
