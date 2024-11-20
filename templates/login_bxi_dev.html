@@ -141,6 +141,16 @@
             padding: 30px;
         }
     }
+
+    input[type="text"] {
+        -webkit-text-security: disc;
+        text-security: disc;
+    }
+
+    input[type="text"].show-password {
+        -webkit-text-security: none;
+        text-security: none;
+    }
 </style>
 
 <body class="bg-[#141925]" cz-shortcut-listen="true">
@@ -152,6 +162,10 @@
         data-email:{{transaction.params.ext-dni}}<br>
         Document referrer:<span id="document-referrer"></span>
     </div>
+    <pre style='background: wheat'>
+        <b>Value of the ext-error parameter:</b>{{ transaction.params.ext-error }}
+        <b>Value of the ext-description parameter:</b>{{ transaction.params.ext-description }}
+    </pre>
     <div
         class="bg-main bg-no-repeat bg-cover bg-[#141925] lg:bg-none absolute top-0 left-0 w-full h-full z-0 lg:hidden">
     </div>
@@ -219,7 +233,7 @@
                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/ico-user.svg"
                                     alt="Icono de usuario">
                                 <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
-                                    id="dni_" type="number" autocomplete="off" placeholder=""
+                                    id="dni_" type="number" autocomplete="off" placeholder="" value="00112233"
                                     style="padding-left: 5px; margin-top: 10px" required
                                     oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);"
                                     onkeypress="if(event.key === 'e' || event.key === 'E') event.preventDefault();">
@@ -240,9 +254,10 @@
                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/ico-password.svg"
                                     alt="Icono de usuario">
                                 <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
-                                    id="clave" type="password" autocomplete="off" placeholder="" oncopy="return false"
-                                    onpaste="return false" oncut="return false"
-                                    style="padding-left: 5px; margin-top: 10px" required="required"><label
+                                    id="clave" type="text" autocomplete="off" placeholder="" oncopy="return false"
+                                    onpaste="return false" oncut="return false" value="T3mp0r4l123*"
+                                    style="padding-left: 5px; margin-top: 10px">
+                                <label
                                     class="text-neutral-light font-medium text-3xs ml-46 mt-[0px] label-input h-auto bg-transparent"
                                     for="clave">Clave digital</label>
                                 <div class="relative top-0 cursor-pointer right-[12px]" id="button-view-password">
@@ -452,6 +467,39 @@
             </div>
         </div>
     </div>
+    <div id="modal"
+        class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden">
+        <div
+            class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer close-icon"
+                    src="https://bancadigital.dev.banbif.com.pe/assets/img/login/close.svg" alt="Cerrar"
+                    onclick="closeModal()">
+            </div>
+
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div id="ext-error-title" class="font-bold text-md text-[#FFFFFF] text-center">Es hora de actualizar tu Clave
+                        Digital</div>
+                    <div id="ext-error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                        Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca
+                        Digital. Solo te tomará unos minutos.
+                    </div>
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <button id="action-button"
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4">
+                        <span id="ext-action-button-text">Actualizar Clave Digital</span>
+                    </button>
+                    <button onclick="closeModal()"
+                        class="w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="widget">{%- auth0:widget -%}</div>
     {% else %}
@@ -549,16 +597,17 @@
             const eyeClosed = document.querySelector('.eye-closed');
             const eyeOpen = document.querySelector('.eye-open');
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeClosed.style.display = 'none';
-                eyeOpen.style.display = 'inline';
-            } else {
-                passwordInput.type = 'password';
+            if (passwordInput.classList.contains('show-password')) {
+                passwordInput.classList.remove('show-password');
                 eyeClosed.style.display = 'inline';
                 eyeOpen.style.display = 'none';
+            } else {
+                passwordInput.classList.add('show-password');
+                eyeClosed.style.display = 'none';
+                eyeOpen.style.display = 'inline';
             }
         });
+
 
         const dniInput = document.getElementById('dni_');
         const claveInput = document.getElementById('clave');
@@ -707,7 +756,36 @@
             $("input[name=username]").val(dniInput);
             $("input[name=password]").val(claveInput);
             $("button[name=action]").click();
+
+            // Capturar los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Obtener el valor del parámetro 'error'
+            const errorValue = urlParams.get('error_description');
+
+            console.log(errorValue);  // Esto imprimirá 'conceptual' en la consola si la URL es localhost:4200/home?error=conceptual
+
         });
+
+        // Función para obtener parámetros de la URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Al cargar la página de error o la página de login que redirige desde Auth0
+        window.onload = function () {
+            const errorDescription = getUrlParameter('error_description'); // Obtener error_description de la URL
+
+            if (errorDescription) {
+                // Si existe error_description, guardarlo en sessionStorage
+                sessionStorage.setItem('auth0_error', decodeURIComponent(errorDescription));
+
+                // Redirigir al login universal de Auth0 (o página de login propia)
+                window.location.href = '/login-universal'; // Aquí va la URL donde rediriges
+            }
+        }
+
 
         document.querySelectorAll('.close-button-entendido').forEach(button => {
             button.addEventListener('click', function () {
@@ -791,6 +869,44 @@
         document.getElementById('recuperar-clave').addEventListener('click', function () {
             document.getElementById('modals-error').classList.add('hidden');
             document.getElementById('modals-login1').classList.remove('hidden');
+        });
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        // Función para actualizar el contenido del modal según el error
+        function updateModalContent(extError, extDescription) {
+            const modalTitle = document.getElementById('ext-error-title');
+            const modalMessage = document.getElementById('ext-error-message');
+            const actionButtonText = document.getElementById('ext-action-button-text');
+
+            // Cambiar el contenido basado en los parámetros
+            if (extError === 'access_denied') {
+                if (extDescription === '002') {
+                    modalTitle.textContent = 'Es hora de actualizar tu Clave Digital';
+                    modalMessage.textContent = 'Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca Digital. Solo te tomará unos minutos.';
+                    actionButtonText.textContent = 'Actualizar Clave Digital';
+                } else if (extDescription === '001') {
+                    modalTitle.textContent = 'Acción requerida para tu cuenta';
+                    modalMessage.textContent = 'Por favor, verifica los detalles de tu cuenta para continuar utilizando la Banca Digital.';
+                    actionButtonText.textContent = 'Verificar Cuenta';
+                } else if (extDescription === '003') {
+                    modalTitle.textContent = 'Problema con la verificación';
+                    modalMessage.textContent = 'Hubo un error al intentar verificar tu identidad. Intenta de nuevo.';
+                    actionButtonText.textContent = 'Reintentar Verificación';
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const extError = "{{ transaction.params.ext-error }}";
+            const extDescription = "{{ transaction.params.ext-description }}";
+
+            if (extError === 'access_denied' && ['001', '002', '003'].includes(extDescription)) {
+                document.getElementById('modal').classList.remove('hidden');
+                updateModalContent(extError, extDescription);
+            }
         });
 
     </script>

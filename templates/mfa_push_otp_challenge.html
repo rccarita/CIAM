@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Factor Authentication - OTP Push Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 350px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .message {
+            font-size: 16px;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .otp-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .otp-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .otp-button:hover {
+            background-color: #0056b3;
+        }
+
+        .otp-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            font-size: 14px;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Push OTP Challenge</h1>
+        <div class="message">
+            Please confirm the login attempt on your device. A push notification has been sent to your mobile device.
+        </div>
+
+        <!-- Placeholder for dynamic content injected by Auth0 -->
+        <div id="auth0-widget"></div>
+
+        <div class="otp-buttons">
+            <button class="otp-button" id="acceptBtn" onclick="acceptChallenge()">Accept</button>
+            <button class="otp-button" id="denyBtn" onclick="denyChallenge()">Deny</button>
+        </div>
+
+        <div class="loading" id="loadingMessage" style="display: none;">Waiting for response...</div>
+    </div>
+
+    <script>
+        // Function to handle the acceptance of the OTP push challenge
+        function acceptChallenge() {
+            document.getElementById('acceptBtn').disabled = true;
+            document.getElementById('denyBtn').disabled = true;
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            // Simulate a delay (you would make a real API call here)
+            setTimeout(() => {
+                alert('Challenge Accepted!');
+                document.getElementById('loadingMessage').style.display = 'none';
+            }, 2000);
+        }
+
+        // Function to handle the denial of the OTP push challenge
+        function denyChallenge() {
+            document.getElementById('acceptBtn').disabled = true;
+            document.getElementById('denyBtn').disabled = true;
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            // Simulate a delay (you would make a real API call here)
+            setTimeout(() => {
+                alert('Challenge Denied!');
+                document.getElementById('loadingMessage').style.display = 'none';
+            }, 2000);
+        }
+    </script>
+
+    <!-- Auth0 Widget Injection -->
+    {%- auth0:widget -%}
+</body>
+
+</html>
