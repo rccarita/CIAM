@@ -17,10 +17,6 @@
 </head>
 
 <style>
-    body {
-        overflow: auto;
-    }
-
     #widget {
         display: none !important;
     }
@@ -87,7 +83,7 @@
     @media (min-width: 1024px) {
 
         .lg\:p-spacing-pop {
-            padding: 30px;
+            padding: 30px !important;
         }
     }
 
@@ -96,7 +92,25 @@
         background-repeat: no-repeat;
         background-size: cover;
         overflow-y: auto;
-        width: 838px;
+        width: 100%;
+    }
+
+    .space {
+        margin-top: 210px;
+    }
+
+    @media (max-width: 768px) {
+
+        .space {
+            margin-top: 0;
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1440px) {
+
+        .space {
+            margin-top: 20px;
+        }
     }
 
     .bg-first {
@@ -116,6 +130,33 @@
     input[type="text"].password-field.show-password {
         -webkit-text-security: none;
         text-security: none;
+    }
+
+    .texto-cambiado {
+        font-size: 32px !important;
+    }
+
+    .letter-spacing {
+        letter-spacing: normal;
+        line-height: 24px;
+    }
+
+    @media (max-width: 768px) {
+        .texto-cambiado {
+            font-size: 24px !important;
+        }
+    }
+
+    @media (min-width: 1024px) {
+
+        .lg\:p-spacing-pop {
+            padding: 24px !important;
+        }
+
+        .letter-spacing {
+            letter-spacing: 0.2px;
+            line-height: 22.5px;
+        }
     }
 </style>
 
@@ -144,7 +185,7 @@
                         Personas
                     </h1>
                 </div>
-                <p class="text-neutral-light02 font-medium text-3xs mt-[80px]">
+                <p class="text-white font-medium text-3xs mt-[80px]">
                     © 2024 BanBif - Todos los derechos reservados.<br>Banco Interamericano de Finanzas S.A. - RUC
                     20101036813
                 </p>
@@ -155,14 +196,14 @@
                 <img class="w-[148.75px] h-[40px] lg:hidden mt-[40px] mb-[244px] ml-6 z-10"
                     src="https://bancadigital.qas.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                     alt="Logo Banbif">
-                <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full">
+                <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full flex justify-center">
                     <div
                         class="py-6 px-4 relative lg:fixed lg:flex lg:flex-col lg:justify-between lg:h-full lg:max-w-[470px] lg:mx-auto">
-                        <div>
-                            <h1
-                                class="lg:text-lg text-[24px] font-semibold text-center text-white font-lato mb-5 lg:mt-[210px]">
+                        <div class="space">
+                            <span
+                                class="lg:text-xs texto-cambiado font-semibold flex justify-center text-white font-lato mb-5">
                                 Ingresa a tu cuenta
-                            </h1>
+                            </span>
                             <div
                                 class="flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
                                 <img class="w-[24px] h-[24px] ml-[9px]"
@@ -244,8 +285,8 @@
                                             </a>
                                         </li>
                                         <li class="fab-menu__item">
-                                            <div class="fab-menu__descript"><b>Atención en Provincia</b><span>(01) 0 801
-                                                    00 456</span></div>
+                                            <div class="fab-menu__descript"><b>Atención en Provincia</b><span>0801
+                                                    00456</span></div>
                                             <a class="fab-menu__link" href="#"
                                                 onclick="handlePhoneClick('0 801 00 456')"><img alt="number"
                                                     src="https://bancadigital.qas.banbif.com.pe/assets/img/login/phone.svg"></a>
@@ -268,10 +309,10 @@
                                         <li class="fab-menu__item toggle"></li>
                                     </ul>
                                 </nav>
-                                <div class="fab-menu__animation" style="margin-bottom: 80px; right: 12px;">Contáctanos
+                                <div class="fab-menu__animation" style="bottom: 87px; right: 5px;">Contáctanos
                                 </div>
                                 <button class="fab-menu__toggle" id="fab-button-toggle"
-                                    style="margin-bottom: 80px;right: 11px;">
+                                    style="bottom: 86px; right: 4px;">
                                     <img alt="contact"
                                         src="https://bancadigital.qas.banbif.com.pe/assets/img/login/support-white.svg">
                                 </button>
@@ -362,19 +403,19 @@
             <div class="flex w-full flex-col gap-[40px] items-center">
                 <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
                     <div id="error-title" class="font-bold text-md text-[#FFFFFF]">Revisa tus datos</div>
-                    <div id="error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                    <div id="error-message"
+                        class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center letter-spacing">
                         Por favor, verifica tus datos de acceso y vuelve a intentarlo.
                     </div>
                 </div>
                 <div class="flex flex-col gap-y-4 w-full">
                     <button
-                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4"
-                        id="recuperar-clave">
-                        Recuperar Clave
-                    </button>
-                    <button
-                        class="close-button-entendido w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
+                        class="close-button-entendido w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4">
                         Reintentar
+                    </button>
+                    <button id="recuperar-clave"
+                        class="w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
+                        Recuperar Clave
                     </button>
                 </div>
             </div>
@@ -590,7 +631,7 @@
 
         const errorMessages = {
             "wrong-credentials": "Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de cuenta. Solo tienes 3 intentos.<br><br>Si no recuerdas tu clave, puedes recuperarla.",
-            "user-blocked": "Por seguridad, tu acceso a la Banca Digital ha sido bloqueado luego de varios intentos fallidos de inicio de sesión. Modifica tu clave para volver a acceder",
+            "user-blocked": "Por seguridad, tu acceso a la Banca Digital ha sido bloqueado luego de varios intentos fallidos de inicio de sesión. Modifica tu clave para volver a acceder.",
         };
 
         const errorTitles = {
@@ -599,8 +640,8 @@
         };
 
         const buttonTexts = {
-            "wrong-credentials": "Recuperar Clave",
-            "user-blocked": "Modificar Clave",
+            "wrong-credentials": "Recuperar clave",
+            "user-blocked": "Modificar clave",
         };
 
         let hasShownError = false;
@@ -621,8 +662,13 @@
                     entendidoButton.classList.remove("hidden");
                     recuperarClaveButton.innerText = buttonTexts["wrong-credentials"];
                 } else if (errorCode === "user-blocked") {
+
+                    recuperarClaveButton.classList.remove("bg-transparent", "hover:bg-[#FFFFFF]", "hover:bg-opacity-10", "text-[#ffffff]", "border-[1px]", "border-solid");
+                    recuperarClaveButton.classList.add("bg-[#925AF5]", "hover:bg-[#A87BF7]", "text-neutral-light06");
+
                     recuperarClaveButton.classList.remove("hidden");
                     entendidoButton.classList.add("hidden");
+
                     recuperarClaveButton.innerText = buttonTexts["user-blocked"];
                 }
 
@@ -772,10 +818,13 @@
         function handlePhoneClick(phoneNumber) {
             var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 
+            var message = encodeURIComponent("Hola, quiero hacer una consulta.");
+            var phoneWhatsapp = '51988598380';
+
             if (isMobile) {
                 window.location.href = `tel:${phoneNumber}`;
             } else {
-                window.open('https://wa.me/51988598380', '_blank');
+                window.open(`https://wa.me/${phoneWhatsapp}?text=${message}`, '_blank');
             }
         }
 

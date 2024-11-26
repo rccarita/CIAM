@@ -244,8 +244,8 @@
                             <div class="w-full h-auto flex items-center gap-6 input-group mt-4 mb-6">
                                 <input class="absolute opacity-0 peer checkbox-input" id="checkboxCustom"
                                     type="checkbox">
-                                <!--<label class="checkbox-label text-neutral-light02" for="checkboxCustom">
-                                    Recordar documento-->
+                                <label class="checkbox-label text-neutral-light02" for="checkboxCustom">
+                                    Recordar documento
                                 </label>
                             </div>
                             <div
@@ -861,12 +861,14 @@
         function handlePhoneClick(phoneNumber) {
             var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 
+            var message = encodeURIComponent("Hola, quiero hacer una consulta.");
             if (isMobile) {
-                window.location.href = `tel:${phoneNumber}`;
+                window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
             } else {
-                window.open('https://wa.me/51988598380', '_blank');
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
             }
         }
+
 
         document.getElementById('recuperar-clave').addEventListener('click', function () {
             document.getElementById('modals-error').classList.add('hidden');
