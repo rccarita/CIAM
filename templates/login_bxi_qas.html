@@ -303,7 +303,7 @@
                                                 <b>Atención presencial</b><span>Ubica nuestras oficinas</span>
                                             </div>
                                             <a class="fab-menu__link"
-                                                href="https://bancadigital.qas.banbif.com.pe/locate-us"><img alt="map"
+                                                href="https://bancadigital.qas.banbif.com.pe/ubicanos"><img alt="map"
                                                     src="https://bancadigital.qas.banbif.com.pe/assets/img/login/map.svg"></a>
                                         </li>
                                         <li class="fab-menu__item toggle"></li>
@@ -439,6 +439,40 @@
                 <div class="flex flex-col gap-y-4 w-full">
                     <button
                         class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4 close-button-entendido">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal"
+        class="w-full h-[100vh] bg-[#161616] fixed top-0 z-[9999] bg-opacity-90 flex justify-center items-center pl-[16px] pr-[16px] gap-4 hidden">
+        <div
+            class="w-full lg:w-[400px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-pop p-spacing-md">
+            <div class="flex w-full justify-end">
+                <img class="w-[24px] h-[24px] cursor-pointer close-icon"
+                    src="https://bancadigital.dev.banbif.com.pe/assets/img/login/close.svg" alt="Cerrar"
+                    onclick="closeModal()">
+            </div>
+
+            <div class="flex w-full flex-col gap-[40px] items-center">
+                <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
+                    <div id="ext-error-title" class="font-bold text-md text-[#FFFFFF] text-center">Es hora de actualizar
+                        tu Clave
+                        Digital</div>
+                    <div id="ext-error-message"
+                        class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                        Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca
+                        Digital. Solo te tomará unos minutos.
+                    </div>
+                </div>
+                <div class="flex flex-col gap-y-4 w-full">
+                    <button id="action-button"
+                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4">
+                        <span id="ext-action-button-text">Actualizar Clave Digital</span>
+                    </button>
+                    <button onclick="closeModal()"
+                        class="w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
                         Entendido
                     </button>
                 </div>
@@ -836,6 +870,46 @@
         document.getElementById('dni_').addEventListener('focus', function () {
             this.setAttribute('autocomplete', 'off');
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const extError = "{{ transaction.params.ext-error }}";
+            const extDescription = "{{ transaction.params.ext-description }}";
+
+            if (extError === 'access_denied' && ['002', '003'].includes(extDescription)) {
+                document.getElementById('modal').classList.remove('hidden');
+                updateModalContent(extError, extDescription);
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function updateModalContent(extError, extDescription) {
+            const modalTitle = document.getElementById('ext-error-title');
+            const modalMessage = document.getElementById('ext-error-message');
+            const actionButtonText = document.getElementById('ext-action-button-text');
+
+            if (extError === 'access_denied') {
+                if (extDescription === '002') {
+                    modalTitle.textContent = 'Es hora de actualizar tu Clave Digital';
+                    modalMessage.textContent = 'Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca Digital. Solo te tomará unos minutos.';
+                    actionButtonText.textContent = 'Actualizar Clave Digital';
+                } else {
+                    modalTitle.textContent = 'Revisa tus datos';
+                    modalMessage.innerHTML = `Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de usuario. Solo tienes 3 intentos. <br><br> Si no recuerdas tu clave, puedes recuperarla.`;
+                    actionButtonText.textContent = 'Recuperar clave';
+                }
+            }
+
+            actionButtonText.addEventListener('click', () => {
+                const currentModal = document.getElementById('modal');
+                currentModal.classList.add('hidden');
+
+                const nextModal = document.getElementById('modals-login2');
+                nextModal.classList.remove('hidden');
+            });
+        }
     </script>
 </body>
 
