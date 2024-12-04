@@ -3,9 +3,9 @@
 
 <head>
     {%- auth0:head -%}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="google" content="notranslate" />
     <link rel="stylesheet" href="https://bancadigital.dev.banbif.com.pe/assets/img/login/tailwind.css">
     <link rel="icon" href="https://bancadigital.dev.banbif.com.pe/favicon.ico" type="image/x-icon">
     <script src="https://bancadigital.dev.banbif.com.pe/assets/js/newrelic.js"> </script>
@@ -18,62 +18,6 @@
 <style>
     #widget {
         display: none !important;
-    }
-
-    .text-slider-container {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        height: 70px;
-        margin-top: 20px;
-    }
-
-    .text-slider {
-        display: flex;
-        animation: slide 30s infinite ease-in-out;
-    }
-
-    .slide {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        flex-shrink: 0;
-        gap: 10px;
-        padding-left: 10px;
-    }
-
-    @keyframes slide {
-        0% {
-            transform: translateX(0);
-        }
-
-        25% {
-            transform: translateX(0);
-        }
-
-        33% {
-            transform: translateX(-100%);
-        }
-
-        58% {
-            transform: translateX(-100%);
-        }
-
-        66% {
-            transform: translateX(-200%);
-        }
-
-        91% {
-            transform: translateX(-200%);
-        }
-
-        100% {
-            transform: translateX(-300%);
-        }
-    }
-
-    .text-slider {
-        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .fab-menu__toggle {
@@ -138,22 +82,84 @@
     @media (min-width: 1024px) {
 
         .lg\:p-spacing-pop {
-            padding: 30px;
+            padding: 30px !important;
         }
     }
 
+    .background-login {
+        background-image: url('https://bancadigital.dev.banbif.com.pe/assets/img/login/banner_login.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    .space {
+        margin-top: 210px;
+    }
+
+    @media (max-width: 768px) {
+
+        .space {
+            margin-top: 0;
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1440px) {
+
+        .space {
+            margin-top: 20px;
+        }
+    }
+
+    .bg-first {
+        background-color: #1c212d;
+    }
+
     input[type="text"] {
+        -webkit-text-security: none;
+        text-security: none;
+    }
+
+    input[type="text"].password-field {
         -webkit-text-security: disc;
         text-security: disc;
     }
 
-    input[type="text"].show-password {
+    input[type="text"].password-field.show-password {
         -webkit-text-security: none;
         text-security: none;
     }
+
+    .texto-cambiado {
+        font-size: 32px !important;
+    }
+
+    .letter-spacing {
+        letter-spacing: normal;
+        line-height: 24px;
+    }
+
+    @media (max-width: 768px) {
+        .texto-cambiado {
+            font-size: 24px !important;
+        }
+    }
+
+    @media (min-width: 1024px) {
+
+        .lg\:p-spacing-pop {
+            padding: 24px !important;
+        }
+
+        .letter-spacing {
+            letter-spacing: 0.2px;
+            line-height: 22.5px;
+        }
+    }
 </style>
 
-<body class="bg-[#141925]" cz-shortcut-listen="true">
+<body class="bg-[#141925]" translate="no" cz-shortcut-listen="true">
     {% if prompt.name == "login" %}
     <div id="page-info">
         Screen width:<span id="screen-width"></span><br>
@@ -162,54 +168,23 @@
         data-email:{{transaction.params.ext-dni}}<br>
         Document referrer:<span id="document-referrer"></span>
     </div>
-    <pre style='background: wheat'>
-        <b>Value of the ext-error parameter:</b>{{ transaction.params.ext-error }}
-        <b>Value of the ext-description parameter:</b>{{ transaction.params.ext-description }}
-    </pre>
     <div
         class="bg-main bg-no-repeat bg-cover bg-[#141925] lg:bg-none absolute top-0 left-0 w-full h-full z-0 lg:hidden">
     </div>
-    <img class="w-[446px] h-[300px] absolute top-[-30px] left-[0px] z-1 pointer-events-none"
+    <img class="w-[446px] h-[300px] absolute top-[-30px] left-[0px] z-1 pointer-events-none z-10"
         src="https://bancadigital.dev.banbif.com.pe/assets/img/login/degradado.png" alt="Degradado Banbif">
     <div class="grid min-h-[100vh] grid-cols-1 lg:grid-cols-12 relative z-3">
-        <div class="lg:col-span-7 h-full hidden lg:block">
-            <div class="h-full flex flex-col justify-between px-[96px] pb-6">
+        <div class="lg:col-span-7 h-full hidden lg:block bg-first">
+            <div class="h-full flex flex-col justify-between px-[96px] pb-6 background-login">
                 <div>
                     <img class="w-[119px] h-[32px] mt-[54px] mb-[124px] z-10 relative"
                         src="https://bancadigital.dev.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                         alt="Logo Banbif">
-                    <h1 class="text-xl font-bold text-left text-white font-lato mb-6">Banca por Internet Personas</h1>
-                    <img src="https://bancadigital.dev.banbif.com.pe/assets/img/login/Tarjetas-BanBif2-removebg-preview.png"
-                        class="mb-6 w-full h-[646px]" alt="">
-                    <div class="text-slider-container">
-                        <div class="text-slider">
-                            <div class="slide">
-                                <img src="https://bancadigital.dev.banbif.com.pe/assets/img/login/candado.svg"
-                                    alt="Icono de seguridad">
-                                <p class="font-medium text-neutral-light06 text-2xs">No compartas tus datos personales o
-                                    claves de acceso por email, teléfono, mensajes o
-                                    redes sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.</p>
-                            </div>
-                            <div class="slide">
-                                <img src="https://bancadigital.dev.banbif.com.pe/assets/img/login/candado.svg"
-                                    alt="Icono de seguridad">
-                                <p class="font-medium text-neutral-light06 text-2xs">Mantén siempre actualizado tu
-                                    software de seguridad y antivirus en tus dispositivos
-                                    para prevenir riesgos.</p>
-                            </div>
-                            <div class="slide">
-                                <img src="https://bancadigital.dev.banbif.com.pe/assets/img/login/candado.svg"
-                                    alt="Icono de seguridad">
-                                <p class="font-medium text-neutral-light06 text-2xs">No ingreses a enlaces sospechosos o
-                                    no verificados que recibas a través de correos o
-                                    mensajes de texto.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full flex justify-center mt-6"><img
-                            src="https://bancadigital.dev.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div>
+                    <h1 class="pt-10 text-lg font-semibold text-left text-white font-lato mb-6">Banca por Internet <br>
+                        Personas
+                    </h1>
                 </div>
-                <p class="text-neutral-light02 font-medium text-3xs mt-[80px]">
+                <p class="text-white font-medium text-3xs mt-[80px]">
                     © 2024 BanBif - Todos los derechos reservados.<br>Banco Interamericano de Finanzas S.A. - RUC
                     20101036813
                 </p>
@@ -217,46 +192,43 @@
         </div>
         <div class="lg:col-span-5 lg:h-full lg:bg-[#1C212D]">
             <div class="flex flex-col justify-between h-full">
-                <img class="w-[148.75px] h-[40px] lg:hidden mt-[40px] mb-[244px] ml-6"
+                <img class="w-[148.75px] h-[40px] lg:hidden mt-[40px] mb-[244px] ml-6 z-10"
                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                     alt="Logo Banbif">
-                <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full">
-                    <div class="py-6 px-4 lg:flex lg:flex-col lg:justify-between lg:h-full lg:max-w-[470px] lg:mx-auto">
-                        <div>
-                            <h1
-                                class="lg:text-lg text-[24px] font-semibold text-center text-white font-lato mb-5 lg:mt-[210px]">
+                <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full flex justify-center">
+                    <div
+                        class="py-6 px-4 relative lg:fixed lg:flex lg:flex-col lg:justify-between lg:h-full lg:max-w-[470px] lg:mx-auto">
+                        <div class="space">
+                            <span
+                                class="lg:text-xs texto-cambiado font-semibold flex justify-center text-white font-lato mb-5">
                                 Ingresa a tu cuenta
-                            </h1>
+                            </span>
                             <div
                                 class="flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
                                 <img class="w-[24px] h-[24px] ml-[9px]"
                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/ico-user.svg"
                                     alt="Icono de usuario">
                                 <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
-                                    id="dni_" type="number" autocomplete="off" placeholder="" value="00112233"
-                                    style="padding-left: 5px; margin-top: 10px" required
-                                    oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);"
-                                    onkeypress="if(event.key === 'e' || event.key === 'E') event.preventDefault();">
+                                    id="dni_" type="text" inputmode="numeric" pattern="\d*" maxlength="8"
+                                    autocomplete="off" placeholder="" required
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);"
+                                    style="padding-left: 5px; margin-top: 10px;">
+
                                 <label
                                     class="text-neutral-light font-medium text-3xs ml-12 ml-46 label-input h-auto bg-transparent"
                                     for="dni_">Documento de identidad</label>
                             </div>
-                            <div class="w-full h-auto flex items-center gap-6 input-group mt-4 mb-6">
-                                <input class="absolute opacity-0 peer checkbox-input" id="checkboxCustom"
-                                    type="checkbox">
-                                <label class="checkbox-label text-neutral-light02" for="checkboxCustom">
-                                    Recordar documento
-                                </label>
-                            </div>
                             <div
-                                class="flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
+                                class="mt-8 flex items-center flex-row h-[56px] rounded-xs bg-light-dark02 text-neutral-light input-group border-input-off">
                                 <img class="w-[24px] h-[24px] ml-[9px]"
                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/ico-password.svg"
                                     alt="Icono de usuario">
-                                <input class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
+                                <input
+                                    class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer password-field"
                                     id="clave" type="text" autocomplete="off" placeholder="" oncopy="return false"
-                                    onpaste="return false" oncut="return false" value="T3mp0r4l123*"
-                                    style="padding-left: 5px; margin-top: 10px">
+                                    onpaste="return false" oncut="return false"
+                                    style="padding-left: 5px; margin-top: 10px" required="required" maxlength="12"
+                                    oninput="this.value = this.value.replace(/\s/g, '');">
                                 <label
                                     class="text-neutral-light font-medium text-3xs ml-46 mt-[0px] label-input h-auto bg-transparent"
                                     for="clave">Clave digital</label>
@@ -296,30 +268,33 @@
                             </div>
                         </div>
                         <div>
-                            <div class="h-[88px] w-full relative">
+                            <div class="h-[88px] w-full content">
                                 <nav class="fab-menu" id="fab-menu">
                                     <div class="fab-menu__backdrop"></div>
-                                    <ul class="fab-menu__list">
+                                    <ul class="fab-menu__list" style="bottom: 150px; right: 10px;">
                                         <li class="fab-menu__item">
                                             <div class="fab-menu__descript">
-                                                <b>Atención por Whatsapp</b><span>Conversa con un asesor</span>
+                                                <b>Atención por WhatsApp</b><span>Conversa con un asesor</span>
                                             </div>
-                                            <a class="fab-menu__link" href="https://wa.me/51988598380"
-                                                target="_blank"><img alt="whatsapp"
-                                                    src="https://bancadigital.dev.banbif.com.pe/assets/img/login/whatsapp.svg"></a>
+                                            <a class="fab-menu__link"
+                                                href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta."
+                                                target="_blank">
+                                                <img alt="whatsapp"
+                                                    src="https://bancadigital.dev.banbif.com.pe/assets/img/login/whatsapp.svg">
+                                            </a>
                                         </li>
                                         <li class="fab-menu__item">
-                                            <div class="fab-menu__descript"><b>Atención en Provincia</b><span>(01) 0 801
-                                                    00 456</span></div>
+                                            <div class="fab-menu__descript"><b>Atención en Provincia</b><span>0801
+                                                    00456</span></div>
                                             <a class="fab-menu__link" href="#"
-                                                onclick="handlePhoneClick('(01) 0 801 00 456')"><img alt="number"
+                                                onclick="handlePhoneClick('0 801 00 456')"><img alt="number"
                                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/phone.svg"></a>
                                         </li>
                                         <li class="fab-menu__item">
                                             <div class="fab-menu__descript"><b>Atención en Lima</b><span>(01) 631
                                                     9000</span></div>
                                             <a class="fab-menu__link" href="#"
-                                                onclick="handlePhoneClick('(01) 0 801 00 456')"><img alt="number"
+                                                onclick="handlePhoneClick('(01) 631 9000')"><img alt="number"
                                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/phone.svg"></a>
                                         </li>
                                         <li class="fab-menu__item">
@@ -327,14 +302,16 @@
                                                 <b>Atención presencial</b><span>Ubica nuestras oficinas</span>
                                             </div>
                                             <a class="fab-menu__link"
-                                                href="https://bancadigital.dev.banbif.com.pe/locate-us"><img alt="map"
+                                                href="https://bancadigital.dev.banbif.com.pe/ubicanos"><img alt="map"
                                                     src="https://bancadigital.dev.banbif.com.pe/assets/img/login/map.svg"></a>
                                         </li>
                                         <li class="fab-menu__item toggle"></li>
                                     </ul>
                                 </nav>
-                                <div class="fab-menu__animation">Contáctanos</div>
-                                <button class="fab-menu__toggle" id="fab-button-toggle">
+                                <div class="fab-menu__animation" style="bottom: 87px; right: 5px;">Contáctanos
+                                </div>
+                                <button class="fab-menu__toggle" id="fab-button-toggle"
+                                    style="bottom: 86px; right: 4px;">
                                     <img alt="contact"
                                         src="https://bancadigital.dev.banbif.com.pe/assets/img/login/support-white.svg">
                                 </button>
@@ -425,19 +402,19 @@
             <div class="flex w-full flex-col gap-[40px] items-center">
                 <div class="flex flex-col gap-spacing-lg justify-center w-full items-center">
                     <div id="error-title" class="font-bold text-md text-[#FFFFFF]">Revisa tus datos</div>
-                    <div id="error-message" class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center">
+                    <div id="error-message"
+                        class="font-medium text-2xs lg:text-xs text-[#A9B0C1] w-full text-center letter-spacing">
                         Por favor, verifica tus datos de acceso y vuelve a intentarlo.
                     </div>
                 </div>
                 <div class="flex flex-col gap-y-4 w-full">
                     <button
-                        class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4"
-                        id="recuperar-clave">
-                        Recuperar Clave
+                        class="close-button-entendido w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs text-center py-4">
+                        Reintentar
                     </button>
-                    <button
-                        class="close-button-entendido w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
-                        Entendido
+                    <button id="recuperar-clave"
+                        class="w-full h-[56px] bg-transparent hover:bg-[#FFFFFF] hover:bg-opacity-10 text-[#ffffff] lg:text-neutral-light06 font-bold text-xs rounded-xs border-[1px] border-solid">
+                        Recuperar Clave
                     </button>
                 </div>
             </div>
@@ -502,10 +479,58 @@
         </div>
     </div>
 
-
     <div id="widget">{%- auth0:widget -%}</div>
     {% else %}
-    <h1>Else</h1>
+    <div class="w-full lg:w-[438px] bg-[#2D323E] h-fit rounded-md flex flex-col gap-spacing-md lg:p-spacing-2xl p-spacing-md"
+        id="card-modal">
+        <div class="flex justify-end w-full">
+            <img class="w-[24px] h-[24px] cursor-pointer" id="close-button" src="./assets/images/close.svg" alt="">
+        </div>
+        <div class="flex w-full flex-col gap-6 lg:gap-[40px] items-center">
+            <div class="flex flex-col gap-6 lg:gap-8">
+                <div class="flex flex-col items-center w-full gap-spacing-lg">
+                    <img class="w-[64px]" src="./assets/images/64x64.svg" alt="">
+                    <div class="flex flex-col items-center gap-spacing-sm">
+                        <span
+                            class="lg:text-[32px] text-[24px] font-semibold text-neutral-light06 leading-[40px]">Ingresa
+                            tu Token digital</span><span
+                            class="text-xs font-regular text-neutral-light02 leading-[22.5px]">Generado en tu Banbif
+                            App</span>
+                    </div>
+                </div>
+                <div class="flex justify-around w-full gap-spacing-xs">
+                    <input id="code1"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                    <input id="code2"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                    <input id="code3"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                    <input id="code4"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                    <input id="code5"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                    <input id="code6"
+                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
+                        type="number" maxlength="1">
+                </div>
+            </div>
+            <div class="flex flex-col items-center w-full gap-spacing-md lg:gap-spacing-lg">
+                <button
+                    class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs"
+                    id="submitTransferButton">
+                    Confirmar
+                </button>
+                <div class="flex justify-center w-full py-[16.5px] hover:bg-[#FFFFFF1A] rounded-xs cursor-pointer">
+                    <span class="text-xs font-bold text-neutral-light06">¿Cómo encontrar tu Token Digital?</span>
+                </div>
+            </div>
+        </div>
+    </div>
     {%- auth0:widget -%} {% endif %}
 
     <script>
@@ -559,7 +584,7 @@
         }
         ),
             document.addEventListener("DOMContentLoaded", function () {
-                document.querySelectorAll('input[type="number"], input[type="password"], .with-border-focus')?.forEach(function (t) {
+                document.querySelectorAll('input[type="text"], input[type="password"], .with-border-focus')?.forEach(function (t) {
                     t.classList.contains("without-border-focus") || (t?.addEventListener("input", function () {
                         var e = t.closest("div");
                         t.value ? (e.classList.add("border-input-on"),
@@ -584,15 +609,22 @@
                 })
             })
 
-        let fabMenuToggle = document.getElementById("fab-button-toggle")
-            , fabMenuToggleIcon = document.querySelector("#fab-button-toggle img")
-            , fabMenu = document.getElementById("fab-menu")
-            , inputSearchLocation = (fabMenuToggle?.addEventListener("click", () => {
-                fabMenu?.classList.toggle("active"),
-                    fabMenuToggle?.classList.toggle("active"),
-                    fabMenuToggle.classList.contains("active") ? fabMenuToggleIcon.src = "https://bancadigital.dev.banbif.com.pe/assets/img/login/close-white.svg" : fabMenuToggleIcon.src = "https://bancadigital.dev.banbif.com.pe/assets/img/login/support-white.svg"
-            }
-            ))
+        let fabMenuToggle = document.getElementById("fab-button-toggle"),
+            fabMenuToggleIcon = document.querySelector("#fab-button-toggle img"),
+            fabMenu = document.getElementById("fab-menu"),
+            fabMenuToggleHandler = fabMenuToggle?.addEventListener("click", () => {
+                fabMenu?.classList.toggle("active");
+                fabMenuToggle?.classList.toggle("active");
+
+                fabMenuToggle.classList.contains("active")
+                    ? fabMenuToggleIcon.src = "https://bancadigital.dev.banbif.com.pe/assets/img/login/close-white.svg"
+                    : fabMenuToggleIcon.src = "https://bancadigital.dev.banbif.com.pe/assets/img/login/support-white.svg";
+
+                document.querySelectorAll("input").forEach(input => {
+                    input.disabled = fabMenuToggle.classList.contains("active");
+                });
+            });
+
 
         document.getElementById('button-view-password').addEventListener('click', function () {
             const passwordInput = document.getElementById('clave');
@@ -622,7 +654,7 @@
             const dniValue = dniInput.value.trim();
             const claveValue = claveInput.value.trim();
 
-            if (dniValue.length === 8 && claveValue !== '') {
+            if (dniValue.length === 8 && claveValue.length >= 8 && claveValue.length <= 12) {
                 submitButton.disabled = false;
                 submitButton.classList.remove('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
                 submitButton.classList.add('bg-interaction-medium', 'text-neutral-light06');
@@ -637,17 +669,17 @@
 
         const errorMessages = {
             "wrong-credentials": "Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de cuenta. Solo tienes 3 intentos.<br><br>Si no recuerdas tu clave, puedes recuperarla.",
-            "user-blocked": "Por seguridad, tu acceso a la Banca Digital ha sido bloqueado luego de varios intentos fallidos de inicio de sesión. Modifica tu clave para volver a acceder",
+            "user-blocked": "Por seguridad, tu acceso a la Banca Digital ha sido bloqueado luego de varios intentos fallidos de inicio de sesión. Modifica tu clave para volver a acceder.",
         };
 
         const errorTitles = {
             "wrong-credentials": "Revisa tus datos",
-            "user-blocked": "Tu acceso a sido bloqueado",
+            "user-blocked": "Tu acceso ha sido bloqueado",
         };
 
         const buttonTexts = {
-            "wrong-credentials": "Recuperar Clave",
-            "user-blocked": "Modificar Clave",
+            "wrong-credentials": "Recuperar clave",
+            "user-blocked": "Modificar clave",
         };
 
         let hasShownError = false;
@@ -668,8 +700,13 @@
                     entendidoButton.classList.remove("hidden");
                     recuperarClaveButton.innerText = buttonTexts["wrong-credentials"];
                 } else if (errorCode === "user-blocked") {
+
+                    recuperarClaveButton.classList.remove("bg-transparent", "hover:bg-[#FFFFFF]", "hover:bg-opacity-10", "text-[#ffffff]", "border-[1px]", "border-solid");
+                    recuperarClaveButton.classList.add("bg-[#925AF5]", "hover:bg-[#A87BF7]", "text-neutral-light06");
+
                     recuperarClaveButton.classList.remove("hidden");
                     entendidoButton.classList.add("hidden");
+
                     recuperarClaveButton.innerText = buttonTexts["user-blocked"];
                 }
 
@@ -735,58 +772,27 @@
         document.getElementById('submitButton').addEventListener('click', function () {
             const dniInput = document.getElementById('dni_').value;
             const claveInput = document.getElementById('clave').value;
-            let errorMessage = "";
 
             if (!navigator.onLine) {
                 showConnectionErrorModal();
                 return;
             }
 
-            if (!dniInput) {
-                errorMessage += "El campo DNI es requerido. ";
-            }
-            if (!claveInput) {
-                errorMessage += "El campo Clave Digital es requerido.";
+            const usernameInput = document.querySelector('input[name="username"]');
+            if (usernameInput) {
+                usernameInput.value = dniInput;
             }
 
-            if (errorMessage) {
-                alert(errorMessage);
-                return;
+            const passwordInput = document.querySelector('input[name="password"]');
+            if (passwordInput) {
+                passwordInput.value = claveInput;
             }
 
-            console.log("Intentando iniciar sesión...");
-            $("input[name=username]").val(dniInput);
-            $("input[name=password]").val(claveInput);
-            $("button[name=action]").click();
-
-            // Capturar los parámetros de la URL
-            const urlParams = new URLSearchParams(window.location.search);
-
-            // Obtener el valor del parámetro 'error'
-            const errorValue = urlParams.get('error_description');
-
-            console.log(errorValue);  // Esto imprimirá 'conceptual' en la consola si la URL es localhost:4200/home?error=conceptual
-
+            const actionButton = document.querySelector('button[name="action"]');
+            if (actionButton) {
+                actionButton.click();
+            }
         });
-
-        // Función para obtener parámetros de la URL
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-
-        // Al cargar la página de error o la página de login que redirige desde Auth0
-        window.onload = function () {
-            const errorDescription = getUrlParameter('error_description'); // Obtener error_description de la URL
-
-            if (errorDescription) {
-                // Si existe error_description, guardarlo en sessionStorage
-                sessionStorage.setItem('auth0_error', decodeURIComponent(errorDescription));
-
-                // Redirigir al login universal de Auth0 (o página de login propia)
-                window.location.href = '/login-universal'; // Aquí va la URL donde rediriges
-            }
-        }
 
 
         document.querySelectorAll('.close-button-entendido').forEach(button => {
@@ -862,17 +868,32 @@
             var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 
             var message = encodeURIComponent("Hola, quiero hacer una consulta.");
+            var phoneWhatsapp = '51988598380';
+
             if (isMobile) {
-                window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+                window.location.href = `tel:${phoneNumber}`;
             } else {
-                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+                window.open(`https://wa.me/${phoneWhatsapp}?text=${message}`, '_blank');
             }
         }
-
 
         document.getElementById('recuperar-clave').addEventListener('click', function () {
             document.getElementById('modals-error').classList.add('hidden');
             document.getElementById('modals-login1').classList.remove('hidden');
+        });
+
+        document.getElementById('dni_').addEventListener('focus', function () {
+            this.setAttribute('autocomplete', 'off');
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const extError = "{{ transaction.params.ext-error }}";
+            const extDescription = "{{ transaction.params.ext-description }}";
+
+            if (extError === 'access_denied' && ['002', '003'].includes(extDescription)) {
+                document.getElementById('modal').classList.remove('hidden');
+                updateModalContent(extError, extDescription);
+            }
         });
 
         function closeModal() {
@@ -889,25 +910,41 @@
                     modalTitle.textContent = 'Es hora de actualizar tu Clave Digital';
                     modalMessage.textContent = 'Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca Digital. Solo te tomará unos minutos.';
                     actionButtonText.textContent = 'Actualizar Clave Digital';
-                } else if (extDescription === '001') {
-                    modalTitle.textContent = 'Tu acceso ha sido bloqueado por 24 horas';
-                    modalMessage.innerHTML = `La validación de tu identidad no se completó. Vuelve a intentarlo mañana.<br><br> Si necesitas ingresar a tu BanBif App con urgencia, visita nuestras oficinas para desbloquear tu acceso.`;
-                    actionButtonText.textContent = 'Ubícanos';
-                } else if (extDescription === '003') {
+                } else {
                     modalTitle.textContent = 'Revisa tus datos';
                     modalMessage.innerHTML = `Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de usuario. Solo tienes 3 intentos. <br><br> Si no recuerdas tu clave, puedes recuperarla.`;
                     actionButtonText.textContent = 'Recuperar clave';
                 }
             }
+
+            actionButtonText.addEventListener('click', () => {
+                const currentModal = document.getElementById('modal');
+                currentModal.classList.add('hidden');
+
+                const nextModal = document.getElementById('modals-login2');
+                nextModal.classList.remove('hidden');
+            });
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const extError = "{{ transaction.params.ext-error }}";
-            const extDescription = "{{ transaction.params.ext-description }}";
+        //Popup code transference
+        document.getElementById('submitTransferButton').addEventListener('click', function () {
+            const code1 = document.getElementById('code1').value;
+            const code2 = document.getElementById('code2').value;
+            const code3 = document.getElementById('code3').value;
+            const code4 = document.getElementById('code4').value;
+            const code5 = document.getElementById('code5').value;
+            const code6 = document.getElementById('code6').value;
 
-            if (extError === 'access_denied' && ['001', '002', '003'].includes(extDescription)) {
-                document.getElementById('modal').classList.remove('hidden');
-                updateModalContent(extError, extDescription);
+            const fullCode = code1 + code2 + code3 + code4 + code5 + code6;
+
+            const codeInput = document.querySelector('input[name="code"]');
+            if (codeInput) {
+                codeInput.value = fullCode;
+            }
+
+            const actionButton = document.querySelector('button[name="action"]');
+            if (actionButton) {
+                actionButton.click();
             }
         });
 
