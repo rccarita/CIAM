@@ -24,10 +24,6 @@
         display: none !important;
     }
 
-    ._widget {
-        display: none !important;
-    }
-
     .fab-menu__toggle {
         width: 59px;
         height: 59px;
@@ -493,92 +489,6 @@
             </div>
         </div>
     </div>
-
-    <div id="widget">{%- auth0:widget -%}</div>
-    {% else %}
-    <div class="w-full lg:w-[438px] bg-[#2D323E] h-fit flex flex-col gap-spacing-md lg:p-spacing-2xl p-spacing-md"
-        id="card-modal">
-        <div class="flex w-full flex-col gap-6 lg:gap-[40px] items-center">
-            <div class="flex flex-col gap-6 lg:gap-8">
-                <div class="flex flex-col items-center w-full gap-spacing-lg">
-                    <div class="flex flex-col items-center gap-spacing-sm">
-                        <span
-                            class="lg:text-[32px] text-[24px] font-semibold text-neutral-light06 leading-[40px]">Ingresa
-                            tu Token digital</span>
-                        <span class="text-xs font-regular text-neutral-light02 leading-[22.5px]">Generado en tu Banbif
-                            App</span>
-                    </div>
-                </div>
-                <div class="flex justify-around w-full gap-spacing-xs">
-                    <input id="code1"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric" oninput="moveFocus(this, 'code2')">
-                    <input id="code2"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric" oninput="moveFocus(this, 'code3')">
-                    <input id="code3"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric" oninput="moveFocus(this, 'code4')">
-                    <input id="code4"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric" oninput="moveFocus(this, 'code5')">
-                    <input id="code5"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric" oninput="moveFocus(this, 'code6')">
-                    <input id="code6"
-                        class="without-border-focus text-center w-2/12 max-w-[49px] lg:max-w-[50.33px] h-14 lg:h-[64px] rounded-xs pt-spacing-xs pr-spacing-sm pb-spacing-xs pl-spacing-sm bg-neutral-light02 font-bold text-lg lg:text-xl text-neutral-light06 bg-opacity-10"
-                        type="text" maxlength="1" inputmode="numeric">
-                </div>
-            </div>
-            <div class="flex flex-col items-center w-full gap-spacing-md lg:gap-spacing-lg">
-                <button
-                    class="w-full h-[56px] bg-[#925AF5] hover:bg-[#A87BF7] text-neutral-light06 font-bold text-xs rounded-xs"
-                    id="submitTransferButton">
-                    Confirmar
-                </button>
-                <div class="flex justify-center w-full py-[16.5px] hover:bg-[#FFFFFF1A] rounded-xs cursor-pointer">
-                    <span class="text-xs font-bold text-neutral-light06">¿Cómo encontrar tu Token Digital?</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Función para mover el foco al siguiente input
-        function moveFocus(currentInput, nextInputId) {
-            if (currentInput.value.length === currentInput.maxLength) {
-                const nextInput = document.getElementById(nextInputId);
-                if (nextInput) {
-                    nextInput.focus();
-                }
-            }
-        }
-
-        // Código de procesamiento de la transferencia
-        document.getElementById('submitTransferButton').addEventListener('click', function () {
-            const code1 = document.getElementById('code1').value;
-            const code2 = document.getElementById('code2').value;
-            const code3 = document.getElementById('code3').value;
-            const code4 = document.getElementById('code4').value;
-            const code5 = document.getElementById('code5').value;
-            const code6 = document.getElementById('code6').value;
-
-            const fullCode = code1 + code2 + code3 + code4 + code5 + code6;
-
-            const codeInput = document.querySelector('input[name="code"]');
-            if (codeInput) {
-                codeInput.value = fullCode;
-            }
-
-            const actionButton = document.querySelector('button[name="action"]');
-            if (actionButton) {
-                actionButton.click();
-            }
-        });
-    </script>
-
-    {%- auth0:widget -%} {% endif %}
-
     <script>
         window.onkeydown = function (event) {
             if (event.key === 'F12' ||
@@ -662,7 +572,6 @@
                                 t.value || e.classList.add("border-input-off")
                         }),
                         t?.addEventListener("click", function () {
-                            t.select()
                         }))
                 })
             })
@@ -986,6 +895,28 @@
             });
         }
     </script>
+    <div id="widget">{%- auth0:widget -%}</div>
+    {% else %}
+    <h1>Else</h1>
+
+    <script>
+        // Código de procesamiento de la transferencia
+        document.addEventListener("DOMContentLoaded", function (){
+            const CodeOtp = "{{ transaction.params.ext-otp }}";
+            const codeInput = document.querySelector('input[name="code"]');
+            
+            if (codeInput) {
+                codeInput.value = CodeOtp;
+            }
+
+            const actionButton = document.querySelector('button[name="action"]');
+            /*if (actionButton) {
+                actionButton.click();
+            }*/
+        });
+    </script>
+
+    {%- auth0:widget -%} {% endif %}
 </body>
 
 </html>
