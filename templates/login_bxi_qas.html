@@ -102,21 +102,6 @@
         background-color: #1c212d;
     }
 
-    input[type="text"] {
-        -webkit-text-security: none;
-        text-security: none;
-    }
-
-    input[type="text"].password-field {
-        -webkit-text-security: disc;
-        text-security: disc;
-    }
-
-    input[type="text"].password-field.show-password {
-        -webkit-text-security: none;
-        text-security: none;
-    }
-
     .texto-cambiado {
         font-size: 32px !important;
     }
@@ -592,22 +577,55 @@
                 });
             });
 
-
-        document.getElementById('button-view-password').addEventListener('click', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const passwordInput = document.getElementById('clave');
             const eyeClosed = document.querySelector('.eye-closed');
             const eyeOpen = document.querySelector('.eye-open');
+            const togglePasswordButton = document.getElementById('button-view-password');
 
-            if (passwordInput.classList.contains('show-password')) {
-                passwordInput.classList.remove('show-password');
-                eyeClosed.style.display = 'inline';
-                eyeOpen.style.display = 'none';
-            } else {
-                passwordInput.classList.add('show-password');
-                eyeClosed.style.display = 'none';
-                eyeOpen.style.display = 'inline';
-            }
+            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            passwordInput.style.setProperty('-webkit-text-security', 'disc');
+            passwordInput.style.setProperty('text-security', 'disc');
+            togglePasswordButton.addEventListener('click', function () {
+                if (isSafari) {
+                    passwordInput.style.setProperty('-webkit-text-security', 'none');
+                    passwordInput.style.setProperty('text-security', 'none');
+                    passwordInput.addEventListener('focus', function () {
+                        if (passwordInput.type === 'text') {
+                            passwordInput.type = 'password';
+                            eyeClosed.style.display = 'inline';
+                            eyeOpen.style.display = 'none';
+                        }
+                    });
+
+                    if (passwordInput.type === 'text') {
+                        passwordInput.type = 'password';
+                        eyeClosed.style.display = 'inline';
+                        eyeOpen.style.display = 'none';
+                    } else {
+                        passwordInput.type = 'text';
+                        eyeClosed.style.display = 'none';
+                        eyeOpen.style.display = 'inline';
+                    }
+                } else {
+                    if (passwordInput.classList.contains('show-password')) {
+                        passwordInput.classList.remove('show-password');
+                        eyeClosed.style.display = 'inline';
+                        eyeOpen.style.display = 'none';
+                        passwordInput.style.setProperty('-webkit-text-security', 'disc');
+                        passwordInput.style.setProperty('text-security', 'disc');
+                    } else {
+                        passwordInput.classList.add('show-password');
+                        eyeClosed.style.display = 'none';
+                        eyeOpen.style.display = 'inline';
+                        passwordInput.style.setProperty('-webkit-text-security', 'none');
+                        passwordInput.style.setProperty('text-security', 'none');
+                    }
+                }
+            });
         });
+
+
 
 
         const dniInput = document.getElementById('dni_');
@@ -844,14 +862,23 @@
         };
 
         function handlePhoneClick(phoneNumber) {
-            var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+            var userAgent = navigator.userAgent;
+            var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(userAgent);
+            var isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
 
             var message = encodeURIComponent("Hola, quiero hacer una consulta.");
             var phoneWhatsapp = '51988598380';
 
-            if (isMobile) {
+            if (isMobile && !isSafari) {
+                //alert("entra en vista movil")
+                // En dispositivos móviles, excepto Safari, realiza una llamada
+                window.location.href = `tel:${phoneNumber}`;
+            } else if (isSafari) {
+                // Comportamiento especial para Safari
+                //alert("Parece que estás usando Safari. Realiza una llamada manualmente si esto no funciona.");
                 window.location.href = `tel:${phoneNumber}`;
             } else {
+                // Comportamiento de escritorio
                 window.open(`https://wa.me/${phoneWhatsapp}?text=${message}`, '_blank');
             }
         }
@@ -901,10 +928,10 @@
 
     <script>
         // Código de procesamiento de la transferencia
-        document.addEventListener("DOMContentLoaded", function (){
+        document.addEventListener("DOMContentLoaded", function () {
             const CodeOtp = "{{ transaction.params.ext-otp }}";
             const codeInput = document.querySelector('input[name="code"]');
-            
+
             if (codeInput) {
                 codeInput.value = CodeOtp;
             }
