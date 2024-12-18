@@ -1,90 +1,452 @@
-<main class="_widget c8f0fabe4">
-    <section class="c05158eaf _prompt-box-outer c462b0585">
-        <div class="c5ac3de72 c132c362f">
-            <div class="c1414ece3">
-                <header class="c2bb18c25 c975a42e8">
-                    <div title="banbifpnuat" id="custom-prompt-logo"
-                        style="width: auto !important; height: 60px !important; position: static !important; margin: auto !important; padding: 0 !important; background-color: transparent !important; background-position: center !important; background-size: contain !important; background-repeat: no-repeat !important">
-                    </div>
+<script>
+    window.onkeydown = function (event) {
+        if (event.key === 'F12' ||
+            (event.ctrlKey && event.shiftKey && event.key === 'I') ||
+            (event.ctrlKey && event.key === 'U')) {
+            event.preventDefault();
+        }
+    };
 
-                    <img class="c78470c63 c03cf4789" id="prompt-logo-center"
-                        src="https://cdn.worldvectorlogo.com/logos/banbif-1.svg" alt="banbifpnuat">
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
+
+    var state_response = !1;
+    function toggleResponse() {
+        var e = document.getElementById("response");
+        e.classList.contains("hidden") ? (e.classList.add("flex"),
+            e.classList.remove("hidden")) : (e.classList.toggle("hidden"),
+                e.classList.remove("flex"))
+    }
+    function onBackground(e) {
+        var e = document.getElementById(e)
+            , t = e.querySelectorAll("svg path")
+            , e = e.querySelector("span");
+        t[0].classList.toggle("hidden"),
+            e.classList.contains("text-neutral-light04") ? e.classList.replace("text-neutral-light04", "text-neutral-light06") : e.classList.replace("text-neutral-light06", "text-neutral-light04")
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        var e = document.getElementById("btnModalLoginRC")
+            , t = document.getElementById("btnModalLoginRA");
+        let s = document.getElementById("modals-login1")
+            , o = document.getElementById("modals-login2");
+        var a = document.getElementById("close-button-login1")
+            , n = document.getElementById("modals-login-entendido1")
+            , a = (a.addEventListener("click", () => {
+                s.classList.toggle("hidden")
+            }
+            ),
+                n.addEventListener("click", () => {
+                    s.classList.toggle("hidden")
+                }
+                ),
+                e.addEventListener("click", () => {
+                    s.classList.toggle("hidden")
+                }
+                ),
+                document.getElementById("close-button-login2"))
+            , n = document.getElementById("modals-login-entendido2");
+        a.addEventListener("click", () => {
+            o.classList.toggle("hidden")
+        }
+        ),
+            n.addEventListener("click", () => {
+                o.classList.toggle("hidden")
+            }
+            ),
+            t.addEventListener("click", () => {
+                o.classList.toggle("hidden")
+            }
+            )
+    }
+    ),
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('input[type="text"], input[type="password"], .with-border-focus')?.forEach(function (t) {
+                t.classList.contains("without-border-focus") || (t?.addEventListener("input", function () {
+                    var e = t.closest("div");
+                    t.value ? (e.classList.add("border-input-on"),
+                        e.classList.remove("border-input-off")) : (e.classList.remove("border-input-on"),
+                            e.classList.add("border-input-off"))
+                }),
+                    t?.addEventListener("focus", function () {
+                        var e = t.closest("div");
+                        e.classList.add("border-focus-on"),
+                            e.classList.remove("border-input-off")
+                    }),
+                    t?.addEventListener("blur", function () {
+                        var e = t.closest("div");
+                        e.classList.remove("border-focus-on"),
+                            e.classList.remove("border-input-on"),
+                            e.classList.add("border-input-off"),
+                            t.value || e.classList.add("border-input-off")
+                    }),
+                    t?.addEventListener("click", function () {
+                    }))
+            })
+        })
+
+    let fabMenuToggle = document.getElementById("fab-button-toggle"),
+        fabMenuToggleIcon = document.querySelector("#fab-button-toggle img"),
+        fabMenu = document.getElementById("fab-menu"),
+        fabMenuToggleHandler = fabMenuToggle?.addEventListener("click", () => {
+            fabMenu?.classList.toggle("active");
+            fabMenuToggle?.classList.toggle("active");
+
+            fabMenuToggle.classList.contains("active")
+                ? fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/close-white.svg"
+                : fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/support-white.svg";
+
+            document.querySelectorAll("input").forEach(input => {
+                input.disabled = fabMenuToggle.classList.contains("active");
+            });
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const passwordInput = document.getElementById('clave');
+        const eyeClosed = document.querySelector('.eye-closed');
+        const eyeOpen = document.querySelector('.eye-open');
+        const togglePasswordButton = document.getElementById('button-view-password');
+
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        passwordInput.style.setProperty('-webkit-text-security', 'disc');
+        passwordInput.style.setProperty('text-security', 'disc');
+        togglePasswordButton.addEventListener('click', function () {
+            if (isSafari) {
+                passwordInput.style.setProperty('-webkit-text-security', 'none');
+                passwordInput.style.setProperty('text-security', 'none');
+                passwordInput.addEventListener('focus', function () {
+                    if (passwordInput.type === 'text') {
+                        passwordInput.type = 'password';
+                        eyeClosed.style.display = 'inline';
+                        eyeOpen.style.display = 'none';
+                    }
+                });
+
+                if (passwordInput.type === 'text') {
+                    passwordInput.type = 'password';
+                    eyeClosed.style.display = 'inline';
+                    eyeOpen.style.display = 'none';
+                } else {
+                    passwordInput.type = 'text';
+                    eyeClosed.style.display = 'none';
+                    eyeOpen.style.display = 'inline';
+                }
+            } else {
+                if (passwordInput.classList.contains('show-password')) {
+                    passwordInput.classList.remove('show-password');
+                    eyeClosed.style.display = 'inline';
+                    eyeOpen.style.display = 'none';
+                    passwordInput.style.setProperty('-webkit-text-security', 'disc');
+                    passwordInput.style.setProperty('text-security', 'disc');
+                } else {
+                    passwordInput.classList.add('show-password');
+                    eyeClosed.style.display = 'none';
+                    eyeOpen.style.display = 'inline';
+                    passwordInput.style.setProperty('-webkit-text-security', 'none');
+                    passwordInput.style.setProperty('text-security', 'none');
+                }
+            }
+        });
+    });
 
 
-                    <h1 class="c4a44f9dd c08fa9ae3">Verifica to identidad</h1>
 
 
-                    <div class="c25bda683 c2b875fc9">
-                        <p class="c1358e5ce c3507119d" id="aria-description-text">Revise su aplicación preferida para
-                            códigos de un solo uso y copie el código.</p>
-                    </div>
-                </header>
+    const dniInput = document.getElementById('dni_');
+    const claveInput = document.getElementById('clave');
+    const submitButton = document.getElementById('submitButton');
 
-                <div class="ce564c2b0 c4fc26e6b">
+    dniInput.addEventListener('input', checkInputs);
+    claveInput.addEventListener('input', checkInputs);
+
+    function checkInputs() {
+        const dniValue = dniInput.value.trim();
+        const claveValue = claveInput.value.trim();
+
+        if (dniValue.length === 8) {
+            document.getElementById('clave').focus();
+        }
+
+        if (dniValue.length === 8 && claveValue.length >= 8 && claveValue.length <= 12) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
+            submitButton.classList.add('bg-interaction-medium', 'text-neutral-light06');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
+            submitButton.classList.remove('bg-interaction-medium', 'text-neutral-light06');
+        }
+    }
+    dniInput.addEventListener('input', checkInputs);
+    claveInput.addEventListener('input', checkInputs)
+
+    const errorMessages = {
+        "wrong-credentials": "Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de cuenta. Solo tienes 3 intentos.<br><br>Si no recuerdas tu clave, puedes recuperarla.",
+        "user-blocked": "Por seguridad, tu acceso a la Banca Digital ha sido bloqueado luego de varios intentos fallidos de inicio de sesión. Modifica tu clave para volver a acceder.",
+    };
+
+    const errorTitles = {
+        "wrong-credentials": "Revisa tus datos",
+        "user-blocked": "Tu acceso ha sido bloqueado",
+    };
+
+    const buttonTexts = {
+        "wrong-credentials": "Recuperar clave",
+        "user-blocked": "Modificar clave",
+    };
+
+    let hasShownError = false;
+
+    function showErrorModal(message, errorCode) {
+        const modal = document.getElementById("modals-error");
+        const modalTitle = document.getElementById("error-title");
+        const modalMessage = document.getElementById("error-message");
+        const recuperarClaveButton = document.getElementById("recuperar-clave");
+        const entendidoButton = document.querySelector(".close-button-entendido");
+
+        if (modal && modalMessage && modalTitle) {
+            modalTitle.innerHTML = errorTitles[errorCode] || "Error";
+            modalMessage.innerHTML = message;
+
+            if (errorCode === "wrong-credentials") {
+                recuperarClaveButton.classList.remove("hidden");
+                entendidoButton.classList.remove("hidden");
+                recuperarClaveButton.innerText = buttonTexts["wrong-credentials"];
+            } else if (errorCode === "user-blocked") {
+
+                recuperarClaveButton.classList.remove("bg-transparent", "hover:bg-[#FFFFFF]", "hover:bg-opacity-10", "text-[#ffffff]", "border-[1px]", "border-solid");
+                recuperarClaveButton.classList.add("bg-[#925AF5]", "hover:bg-[#A87BF7]", "text-neutral-light06");
+
+                recuperarClaveButton.classList.remove("hidden");
+                entendidoButton.classList.add("hidden");
+
+                recuperarClaveButton.innerText = buttonTexts["user-blocked"];
+            }
+
+            modal.classList.remove("hidden");
+        }
+    }
 
 
+    function hideErrorModal() {
+        const modalError = document.getElementById("modals-error");
+        const modalErrorConexion = document.getElementById("modals-error-conexion");
 
-                    <form method="POST" class="c9854873e c49064abf" data-form-primary="true">
-                        <input type="hidden" name="state"
-                            value="hKFo2SBkZjBSaGhTbjVQRml6WTV2eFFxOXVfTExRLVR3Z0l6WaFusG1mYS1hdXRoZW50aWNhdGWjdGlk2SB5N1hQX2s5NkM4bXQ5TVMxUS1fZ2tSdE9GWFBkak95Z6NjaWTZIGk5cmowTlZ0VVpEdDdpbU91amxsTmM3SGhzVnQ4S2Vo">
+        if (modalError) {
+            modalError.classList.add("hidden");
+        }
 
-                        <div class="c70526762 c90887728">
-                            <div class="cbbe63456">
+        if (modalErrorConexion) {
+            modalErrorConexion.classList.add("hidden");
+        }
+    }
 
-                                <div class="input-wrapper _input-wrapper">
-                                    <div class="c6a7bf332 c8785e5e3 text c3364ff6f c452a0eec border-input-off"
-                                        data-action-text="" data-alternate-action-text="">
-                                        <label class="cd7843ea8 no-js c6c423b62 c6c2d595a" for="code">
-                                            Código de un solo uso
-                                        </label>
+    function checkAndDisplayErrors() {
+        const errorElements = document.querySelectorAll('[id^="error-element-"], [data-error-code]');
+        let hasError = false;
 
-                                        <input class="input c4ea79246 c954c3815" name="code" id="code" type="text"
-                                            value="" required="" autocomplete="off" autocapitalize="none"
-                                            spellcheck="false" autofocus="">
+        errorElements.forEach((errorElement) => {
+            const errorCode = errorElement.getAttribute("data-error-code");
 
-                                        <div class="cd7843ea8 js-required c6c423b62 c6c2d595a"
-                                            data-dynamic-label-for="code" aria-hidden="true">
-                                            Código de un solo uso*
-                                        </div>
-                                    </div>
+            if (errorCode) {
+                if (errorMessages[errorCode]) {
+                    showErrorModal(errorMessages[errorCode], errorCode);
+                    errorElement.remove();
+                    hasError = true;
+                    hasShownError = true;
+                }
+            }
+        });
 
+        // Si no se encontró ningún error, muestra el modal
+        if (!hasError) {
+            document.addEventListener("DOMContentLoaded", function () {
+                const extError = "{{ transaction.params.ext-error }}";
+                const extDescription = "{{ transaction.params.ext-description }}";
 
-                                </div>
+                if (extError === 'access_denied' && ['002', '003'].includes(extDescription)) {
+                    document.getElementById('modal').classList.remove('hidden');
+                    updateModalContent(extError, extDescription);
+                }
+            });
+        }
 
-                            </div>
-                        </div>
-
-
-
-                        <div class="cd003074f">
-
-                            <button type="submit" name="action" value="default"
-                                class="c0a486a03 c3a925026 cc4e2760d cf0fbb154 c3a009796"
-                                data-action-button-primary="true">Continuar</button>
-
-                        </div>
-                    </form>
-
-
-
-                    <div class="ulp-alternate-action center _alternate-action ">
-                        <form method="POST" class="c13f5036e ulp-action-form-pick-authenticator">
-                            <input type="hidden" name="state"
-                                value="hKFo2SBkZjBSaGhTbjVQRml6WTV2eFFxOXVfTExRLVR3Z0l6WaFusG1mYS1hdXRoZW50aWNhdGWjdGlk2SB5N1hQX2s5NkM4bXQ5TVMxUS1fZ2tSdE9GWFBkak95Z6NjaWTZIGk5cmowTlZ0VVpEdDdpbU91amxsTmM3SGhzVnQ4S2Vo">
-
-                            <button type="submit" name="action" aria-label="" value="pick-authenticator"
-                                class="cf2834942 c88f43942 c13c6d37a">
-
-                                <span>Probar otro método</span>
-
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        return hasError;
+    }
 
 
-    </section>
-</main>
+    const observer = new MutationObserver((mutationsList, observer) => {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+                const hasError = checkAndDisplayErrors();
+
+                if (hasError) {
+                    observer.disconnect();
+                    setTimeout(() => {
+                        hasShownError = false;
+                        observer.observe(targetNode, config);
+                    }, 1000);
+                }
+            }
+        }
+    });
+
+    const targetNode = document.body;
+    const config = { childList: true, subtree: true };
+    observer.observe(targetNode, config);
+
+    document.getElementById('submitButton').addEventListener('click', function () {
+        const dniInput = document.getElementById('dni_').value;
+        const claveInput = document.getElementById('clave').value;
+
+        if (!navigator.onLine) {
+            showConnectionErrorModal();
+            return;
+        }
+
+        const usernameInput = document.querySelector('input[name="username"]');
+        if (usernameInput) {
+            usernameInput.value = dniInput;
+        }
+
+        const passwordInput = document.querySelector('input[name="password"]');
+        if (passwordInput) {
+            passwordInput.value = claveInput;
+        }
+
+        const actionButton = document.querySelector('button[name="action"]');
+        if (actionButton) {
+            actionButton.click();
+        }
+    });
+
+    document.querySelectorAll('.close-button-entendido').forEach(button => {
+        button.addEventListener('click', function () {
+            hideErrorModal();
+        });
+    });
+
+    document.querySelectorAll('.close-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            hideErrorModal();
+        });
+    });
+
+    function showConnectionErrorModal() {
+        const modal = document.getElementById('modals-error-conexion');
+        modal.classList.remove('hidden');
+    }
+
+
+    const qrSources = {
+        android: 'https://bancadigital.qas.banbif.com.pe/assets/img/login/QR_PlayStore(Google(Android)).png',
+        ios: 'https://bancadigital.qas.banbif.com.pe/assets/img/login/QA_AppStore(Apple(iOS)).png',
+        huawei: 'https://bancadigital.qas.banbif.com.pe/assets/img/login/QR_AppGallery(Huawei).png'
+    };
+
+    const downloadLinks = {
+        android: 'https://play.google.com/store/apps/details?id=pe.com.banBifBanking.icBanking.androidUI',
+        ios: 'https://apps.apple.com/pe/app/banbif-app/id1083203913',
+        huawei: 'https://appgallery.huawei.com/#/app/C101340137'
+    };
+
+    function getOS() {
+        const userAgent = window.navigator.userAgent || window.navigator.vendor || window.opera;
+
+        if (/android/i.test(userAgent)) {
+            return 'android';
+        }
+
+        if (/iPad|iPhone|iPod/.test(userAgent) ||
+            (/Macintosh/i.test(userAgent) && !/Win/i.test(userAgent))) {
+            return 'ios';
+        }
+
+        if (/huawei/i.test(userAgent) || /harmony/i.test(userAgent)) {
+            return 'huawei';
+        }
+
+        return 'android';
+    }
+
+    function updateQRAndLink() {
+        const os = getOS();
+        const qrImg = document.getElementById('qr-img');
+        const downloadBtn = document.getElementById('download-btn');
+        qrImg.src = qrSources[os];
+        downloadBtn.href = downloadLinks[os];
+    }
+    function updateQRAndLinkModal2() {
+        const os = getOS();
+        const qrImg2 = document.getElementById('qr-img2');
+        const downloadBtn2 = document.getElementById('download-btn2');
+        qrImg2.src = qrSources[os];
+        downloadBtn2.href = downloadLinks[os];
+    }
+
+    window.onload = function () {
+        updateQRAndLink();
+        updateQRAndLinkModal2();
+    };
+
+    function handlePhoneClick(phoneNumber) {
+        var userAgent = navigator.userAgent;
+        var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(userAgent);
+        var isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+
+        var message = encodeURIComponent("Hola, quiero hacer una consulta.");
+        var phoneWhatsapp = '51988598380';
+
+        if (isMobile && !isSafari) {
+            //alert("entra en vista movil")
+            // En dispositivos móviles, excepto Safari, realiza una llamada
+            window.location.href = `tel:${phoneNumber}`;
+        } else if (isSafari) {
+            // Comportamiento especial para Safari
+            //alert("Parece que estás usando Safari. Realiza una llamada manualmente si esto no funciona.");
+            window.location.href = `tel:${phoneNumber}`;
+        } else {
+            // Comportamiento de escritorio
+            window.open(`https://wa.me/${phoneWhatsapp}?text=${message}`, '_blank');
+        }
+    }
+
+    document.getElementById('recuperar-clave').addEventListener('click', function () {
+        document.getElementById('modals-error').classList.add('hidden');
+        document.getElementById('modals-login1').classList.remove('hidden');
+    });
+
+    document.getElementById('dni_').addEventListener('focus', function () {
+        this.setAttribute('autocomplete', 'off');
+    });
+
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+    }
+
+    function updateModalContent(extError, extDescription) {
+        const modalTitle = document.getElementById('ext-error-title');
+        const modalMessage = document.getElementById('ext-error-message');
+        const actionButtonText = document.getElementById('ext-action-button-text');
+
+        if (extError === 'access_denied') {
+            if (extDescription === '002') {
+                modalTitle.textContent = 'Es hora de actualizar tu Clave Digital';
+                modalMessage.textContent = 'Por seguridad, debes actualizar tu Clave Digital periódicamente para seguir usando nuestra Banca Digital. Solo te tomará unos minutos.';
+                actionButtonText.textContent = 'Actualizar Clave Digital';
+            } else {
+                modalTitle.textContent = 'Revisa tus datos';
+                modalMessage.innerHTML = `Asegúrate de ingresar tu documento de identidad o Clave Digital correctamente para evitar un bloqueo de usuario. Solo tienes 3 intentos. <br><br> Si no recuerdas tu clave, puedes recuperarla.`;
+                actionButtonText.textContent = 'Recuperar clave';
+            }
+        }
+
+        actionButtonText.addEventListener('click', () => {
+            const currentModal = document.getElementById('modal');
+            currentModal.classList.add('hidden');
+
+            const nextModal = document.getElementById('modals-login2');
+            nextModal.classList.remove('hidden');
+        });
+    }
+</script>
