@@ -90,16 +90,8 @@
         }
     }
 
-    .background-login {
-        background-image: url('https://bancadigital.qas.banbif.com.pe/assets/img/login/banner_login.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        overflow-y: auto;
-        width: 100%;
-    }
-
     .bg-first {
-        background-color: #1c212d;
+        background-color: #141925;
     }
 
     .texto-cambiado {
@@ -111,6 +103,11 @@
         line-height: 24px;
     }
 
+    .img-background {
+        border-radius: 8px;
+
+    }
+
     .custom-container {
         display: flex;
         align-items: center;
@@ -118,9 +115,106 @@
         height: auto;
     }
 
-    @media (max-width: 768px) {
+    .hamburger {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 50px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+    #fab-button-toggle.active {
+        z-index: 102;
+    }
+
+    .animation {
+        height: 48px !important;
+    }
+
+    .background-whatsapp {
+        background-color: #57d163 !important;
+        width: 48px !important;
+        height: 48px !important;
+        bottom: 86px;
+        right: 4px;
+    }
+
+    .content {
+        width: 100%;
+        height: 88px;
+    }
+
+    .nav-movil {
+        position: fixed;
+        z-index: 102;
+        top: 90px !important;
+        padding-left: 4px;
+        padding-right: 40px;
+    }
+
+    .bg-main {
+        background-image: url('https://bancadigital.qas.banbif.com.pe/assets/img/login/banner_login.png');
+        background-size: contain;
+    }
+
+    .branding {
+        top: -30px !important;
+    }
+
+    .position-toggle {
+        top: 100px;
+        right: 20px;
+        gap: 24px !important;
+    }
+
+    .img-whatsapp {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    @media (max-width: 1024px) {
         .texto-cambiado {
             font-size: 24px !important;
+        }
+
+        .hamburger {
+            position: fixed;
+            left: 0;
+            z-index: 102;
+            margin-left: 20px;
+        }
+
+        .animation {
+            display: none;
+        }
+
+        .background-whatsapp {
+            position: fixed !important;
+            width: 40px !important;
+            height: 40px !important;
+            top: 40px !important;
+            right: 20px !important;
+            z-index: auto;
+        }
+
+        .content {
+            height: auto;
+        }
+
+        .branding {
+            top: -130px !important;
+        }
+
+        .position-toggle {
+            position: fixed;
+            top: 100px;
+            right: 165px;
+        }
+
+        .img-whatsapp {
+            width: 40px !important;
+            height: 40px !important;
         }
     }
 
@@ -142,13 +236,68 @@
         }
     }
 
-    @media (min-width: 381px) and (max-width: 500px) {
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        height: 400px;
+        overflow: hidden;
+        margin: auto;
+    }
 
-        .ulp-auth0-v2-captcha,
-        .ulp-hcaptcha,
-        .ulp-recaptcha {
-            height: auto;
-        }
+    .carousel-slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+    }
+
+    .carousel-dots label {
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        background: gray;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .carousel-dots label:hover,
+    input:checked+.carousel-dots label {
+        background: white;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    #slide-1:checked~.carousel-slides {
+        transform: translateX(0%);
+    }
+
+    #slide-2:checked~.carousel-slides {
+        transform: translateX(-100%);
+    }
+
+    #slide-3:checked~.carousel-slides {
+        transform: translateX(-200%);
     }
 </style>
 
@@ -164,18 +313,55 @@
     <div
         class="bg-main bg-no-repeat bg-cover bg-[#141925] lg:bg-none absolute top-0 left-0 w-full h-full z-0 lg:hidden">
     </div>
-    <img class="w-[446px] h-[300px] absolute top-[-30px] left-[0px] z-1 pointer-events-none z-10"
+    <img class="w-[446px] h-[300px] absolute branding left-[0px] z-1 pointer-events-none z-10"
         src="https://bancadigital.qas.banbif.com.pe/assets/img/login/degradado.png" alt="Degradado Banbif">
     <div class="grid min-h-[100vh] grid-cols-1 lg:grid-cols-12 relative z-3">
         <div class="lg:col-span-7 h-full hidden lg:block bg-first">
-            <div class="h-full flex flex-col justify-between px-[96px] pb-6 background-login">
+            <div class="h-full flex flex-col justify-between px-[96px] pb-6">
                 <div>
                     <img class="w-[119px] h-[32px] mt-[54px] mb-[124px] z-10 relative"
                         src="https://bancadigital.qas.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                         alt="Logo Banbif">
-                    <h1 class="pt-10 text-lg font-semibold text-left text-white font-lato mb-6">Banca por Internet <br>
-                        Personas
+                    <h1 class="pt-10 text-lg font-semibold ruby text-white font-lato mb-6">Banca por Internet Personas
                     </h1>
+                    <div class="carousel-container">
+                        <input type="radio" name="carousel" id="slide-1" checked>
+                        <input type="radio" name="carousel" id="slide-2">
+                        <input type="radio" name="carousel" id="slide-3">
+
+                        <div class="carousel-slides">
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide">
+                                <img src="../src/assets/portada.png" alt="slide 1">
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <img src="../src/assets/portada.png" alt="slide 2">
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide">
+                                <img src="../src/assets/portada.png" alt="slide 3">
+                            </div>
+                        </div>
+
+                        <!-- Indicadores -->
+                        <div class="carousel-dots">
+                            <label for="slide-1"></label>
+                            <label for="slide-2"></label>
+                            <label for="slide-3"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="flex gap-4 mt-5">
+                        <img src="https://bancadigital.qas.banbif.com.pe/assets/img/login/candado.svg" alt="">
+                        <p class="font-regular text-neutral-light06 text-2xs">
+                            No compartas tus datos personales o claves de acceso por email, teléfono, mensajes o redes
+                            sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.
+                        </p>
+                    </div>
+                    <div class="w-full flex justify-center mt-6"><img
+                            src="https://bancadigital.qas.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div>
                 </div>
                 <p class="text-white font-medium text-3xs mt-[80px]">
                     © 2024 BanBif - Todos los derechos reservados.<br>Banco Interamericano de Finanzas S.A. - RUC
@@ -185,13 +371,17 @@
         </div>
         <div class="lg:col-span-5 lg:h-full lg:bg-[#1C212D]">
             <div class="flex flex-col justify-between h-full">
-                <img class="w-[148.75px] h-[40px] lg:hidden mt-[40px] mb-[244px] ml-6 z-10"
+                <img style="margin-left:4rem; margin-top: 16px;" class="w-[148.75px] h-[40px] lg:hidden mb-[244px] z-10"
                     src="https://bancadigital.qas.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                     alt="Logo Banbif">
                 <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full flex justify-center">
                     <div
                         class="py-6 px-4 relative lg:fixed lg:flex lg:flex-col lg:items-center lg:justify-between lg:h-full lg:max-w-[470px] lg:mx-auto">
                         <div class="custom-container">
+                            <div id="fab-button-toggle">
+                                <img src="https://bancadigital.qas.banbif.com.pe/assets/img/home/icon-menu.svg"
+                                    class="hamburger" alt="">
+                            </div>
                             <div class="w-full">
                                 <div>
                                     <span
@@ -273,60 +463,55 @@
                                     <div class="h-[88px] w-full content">
                                         <nav class="fab-menu" id="fab-menu">
                                             <div class="fab-menu__backdrop"></div>
-                                            <ul class="fab-menu__list" style="bottom: 150px; right: 10px;">
-                                                <li class="fab-menu__item">
-                                                    <div class="fab-menu__descript">
-                                                        <b>Atención por WhatsApp</b><span>Conversa con un asesor</span>
-                                                    </div>
-                                                    <a class="fab-menu__link"
-                                                        href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta."
-                                                        target="_blank">
-                                                        <img alt="whatsapp"
-                                                            src="https://bancadigital.qas.banbif.com.pe/assets/img/login/whatsapp.svg">
-                                                    </a>
-                                                </li>
-                                                <li class="fab-menu__item">
-                                                    <div class="fab-menu__descript"><b>Atención en
-                                                            Provincia</b><span>0801
-                                                            00456</span></div>
+                                            <ul class="fab-menu__list position-toggle">
+                                                <li class="fab-menu__item w-full">
                                                     <a class="fab-menu__link" href="#"
                                                         onclick="handlePhoneClick('0 801 00 456')"><img alt="number"
                                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/phone.svg"></a>
+                                                    <div class="fab-menu__descript"><b>Atención en
+                                                            Provincia</b><span style="text-align: start;">0801
+                                                            00456</span></div>
                                                 </li>
-                                                <li class="fab-menu__item">
-                                                    <div class="fab-menu__descript"><b>Atención en Lima</b><span>(01)
-                                                            631
-                                                            9000</span></div>
+                                                <li class="fab-menu__item w-full">
                                                     <a class="fab-menu__link" href="#"
                                                         onclick="handlePhoneClick('(01) 631 9000')"><img alt="number"
                                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/users/movil-purple.svg"></a>
+                                                    <div class="fab-menu__descript"><b>Atención en Lima</b><span
+                                                            style="text-align: start;">(01)
+                                                            631
+                                                            9000</span></div>
                                                 </li>
-                                                <li class="fab-menu__item">
-                                                    <div class="fab-menu__descript">
-                                                        <b>Atención presencial</b><span>Ubica nuestras oficinas</span>
-                                                    </div>
+                                                <li class="fab-menu__item w-full">
                                                     <a class="fab-menu__link"
                                                         href="https://bancadigital.qas.banbif.com.pe/ubicanos"><img
                                                             alt="map"
                                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/map.svg"></a>
+                                                    <div class="fab-menu__descript">
+                                                        <b>Atención presencial</b><span style="text-align: start;">Ubica
+                                                            nuestras oficinas</span>
+                                                    </div>
                                                 </li>
                                                 <li class="fab-menu__item toggle"></li>
                                             </ul>
                                         </nav>
-                                        <div class="fab-menu__animation" style="bottom: 87px; right: 8px;">Contáctanos
+                                        <div class="fab-menu__animation animation" style="bottom: 87px; right: 5px;">
+                                            Conversemos
                                         </div>
-                                        <button class="fab-menu__toggle" id="fab-button-toggle"
-                                            style="bottom: 86px; right: 4px;">
-                                            <img alt="contact"
-                                                src="https://bancadigital.qas.banbif.com.pe/assets/img/login/support-white.svg">
-                                        </button>
+                                        <a
+                                            href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta.">
+                                            <button class="fab-menu__toggle background-whatsapp">
+                                                <img class="img-whatsapp" alt="contact"
+                                                    src="../src/assets//whatsapp.svg">
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-auto w-full">
-                            <p class="justify-center text-neutral-light02 text-center font-regular text-[14px]">
+                            <p
+                                class="justify-center text-neutral-light02 text-center font-regular text-[14px] invisible">
                                 Recuerda que para bloquear tus tarjetas y/o reportar cargos no reconocidos puedes llamar
                                 a la Banca Telefónica las 24hrs.
                             </p>
@@ -582,13 +767,14 @@
                 fabMenuToggle?.classList.toggle("active");
 
                 fabMenuToggle.classList.contains("active")
-                    ? fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/close-white.svg"
-                    : fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/support-white.svg";
+                    ? (fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/close.svg")
+                    : (fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/home/icon-menu.svg");
 
                 document.querySelectorAll("input").forEach(input => {
                     input.disabled = fabMenuToggle.classList.contains("active");
                 });
             });
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const passwordInput = document.getElementById('random-uuid-prueba');
