@@ -68,49 +68,12 @@ exports.updateTemplate = async (req, res) => {
     });
 };
 
-exports.updateTemplateMFA = async (req, res) => {
-  const { templateId } = req.params;
-
-  console.log(req);
-
-  const filePath = path.join(__dirname, '..', '..', 'templates', 'mfa_push_welcome.html');
-
-  const token = await getToken();
-
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("An error occurred while reading the file.");
-    }
-
-    var options = {
-      method: "PUT",
-      url: `https://${process.env.DOMAIN}/api/v2/branding/templates/${templateId}`,
-      headers: {
-        authorization: `Bearer ${token}`,
-        "content-type": "text/html",
-      },
-      data: data,
-    };
-
-    axios
-      .request(options)
-      .then(function (response) {
-        res.send(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-        res.status(500).send(error);
-      });
-  });
-};
-
 exports.updateTemplateLogin = async (req, res) => {
   const { templateId } = req.params;
 
   // Obtener el template de templates/login.html y convertirlo a texto plano:
   // const filePath = path.join(__dirname, "..", "templates", "login.html");
-  const filePath = path.join(__dirname, '..', '..', 'templates', 'login_bxi_qas.html');
+  const filePath = path.join(__dirname, '..', '..', 'templates', 'login_bxi_prd.html');
 
   const token = await getToken();
 
@@ -146,9 +109,6 @@ exports.readTemplate = async (req, res) => {
   const { templateId } = req.params;
 
   const token = await getToken();
-  console.log(token);
-  console.log("-------");
-  console.log(templateId);
 
   var options = {
     method: "GET",
