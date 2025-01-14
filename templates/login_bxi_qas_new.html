@@ -18,6 +18,7 @@
 <style>
     body {
         background-color: #2b303b !important;
+        overflow: hidden !important;
     }
 
     #widget {
@@ -95,7 +96,7 @@
     }
 
     .texto-cambiado {
-        font-size: 32px !important;
+        font-size: 32px;
     }
 
     .letter-spacing {
@@ -120,12 +121,12 @@
         top: 0;
         right: 0;
         margin-top: 50px;
-        margin-right: 20px;
+        margin-right: 35px;
         cursor: pointer;
     }
 
     #fab-button-toggle.active {
-        z-index: 102;
+        z-index: 999999;
     }
 
     .animation {
@@ -133,11 +134,12 @@
     }
 
     .background-whatsapp {
-        background-color: #57d163 !important;
+        background-color: #FFFFFF !important;
         width: 48px !important;
         height: 48px !important;
-        bottom: 86px;
-        right: 4px;
+        bottom: 100px;
+        right: 30px;
+        z-index: 1;
     }
 
     .content {
@@ -160,6 +162,27 @@
 
     .branding {
         top: -30px !important;
+        z-index: 1;
+    }
+
+    .branding.active {
+        z-index: 0;
+    }
+
+    .z-index {
+        z-index: 1;
+    }
+
+    .z-index2 {
+        z-index: 1;
+    }
+
+    .z-index.active {
+        z-index: 0;
+    }
+
+    .z-index2.active {
+        z-index: 0;
     }
 
     .position-toggle {
@@ -168,9 +191,22 @@
         gap: 24px !important;
     }
 
+    .text-laptop {
+        font-size: 12px;
+        width: 390px;
+    }
+
     .img-whatsapp {
         width: 48px !important;
         height: 48px !important;
+    }
+
+    .text-tittle {
+        font-size: 24px;
+    }
+
+    .padding-container {
+        padding: 20px;
     }
 
     @media (max-width: 1024px) {
@@ -209,12 +245,19 @@
         .position-toggle {
             position: fixed;
             top: 100px;
-            right: 165px;
+            left: 20px;
         }
 
         .img-whatsapp {
             width: 40px !important;
             height: 40px !important;
+        }
+    }
+
+    @media (min-width: 764px) {
+
+        .bg-main {
+            background-size: cover;
         }
     }
 
@@ -236,11 +279,82 @@
         }
     }
 
+    @media (min-width:1440px) {
+        .carousel-container {
+            height: 400px !important;
+        }
+
+        .logo-img {
+            margin-bottom: 124px !important;
+            margin-top: 54px !important;
+        }
+
+        .img-carrousel {
+            height: 400px !important;
+        }
+
+        .margin-text {
+            margin-top: 0px;
+        }
+
+        .text-laptop {
+            font-size: 14px;
+            width: 450px;
+        }
+
+        .text-tittle {
+            font-size: 28px;
+        }
+
+        .text-tittle-home {
+            font-size: 32px;
+        }
+
+        .padding-container {
+            padding: 0px;
+        }
+    }
+
+    @media (max-width: 1400px) {
+        .texto-cambiado {
+            font-size: 24px !important;
+        }
+    }
+
+    @media (min-width: 381px) and (max-width: 500px) {
+
+        .ulp-auth0-v2-captcha,
+        .ulp-hcaptcha,
+        .ulp-recaptcha {
+            height: auto;
+        }
+    }
+
+    @media (max-width: 380px) {
+
+        .ulp-auth0-v2-captcha,
+        .ulp-hcaptcha,
+        .ulp-recaptcha {
+            height: auto;
+        }
+    }
+
+    @media (max-height: 800px) {
+        body {
+            overflow: auto !important;
+        }
+    }
+
+    .logo-img {
+        margin-bottom: 0px;
+        margin-top: 20px;
+    }
+
     .carousel-container {
         position: relative;
         width: 100%;
         max-width: 800px;
-        height: 400px;
+        height: 295px;
         overflow: hidden;
         margin: auto;
     }
@@ -255,9 +369,10 @@
         flex: 0 0 100%;
     }
 
-    .carousel-slide img {
+    .img-carrousel {
+        border-radius: 8px;
         width: 100%;
-        height: 400px;
+        height: 295px;
         object-fit: cover;
     }
 
@@ -277,6 +392,12 @@
         border-radius: 50%;
         cursor: pointer;
         transition: background 0.3s;
+    }
+
+    .position {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 1.5rem;
     }
 
     .carousel-dots label:hover,
@@ -313,57 +434,63 @@
     <div
         class="bg-main bg-no-repeat bg-cover bg-[#141925] lg:bg-none absolute top-0 left-0 w-full h-full z-0 lg:hidden">
     </div>
-    <img class="w-[446px] h-[300px] absolute branding left-[0px] z-1 pointer-events-none z-10"
+    <img class="w-[446px] h-[300px] absolute branding left-[0px] pointer-events-none"
         src="https://bancadigital.qas.banbif.com.pe/assets/img/login/degradado.png" alt="Degradado Banbif">
     <div class="grid min-h-[100vh] grid-cols-1 lg:grid-cols-12 relative z-3">
         <div class="lg:col-span-7 h-full hidden lg:block bg-first">
             <div class="h-full flex flex-col justify-between px-[96px] pb-6">
-                <div>
-                    <img class="w-[119px] h-[32px] mt-[54px] mb-[124px] z-10 relative"
+                <div class="absolute">
+                    <img class="w-[119px] h-[32px] mt-[54px] logo-img relative z-index"
                         src="https://bancadigital.qas.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                         alt="Logo Banbif">
-                    <h1 class="pt-10 text-lg font-semibold ruby text-white font-lato mb-6">Banca por Internet Personas
-                    </h1>
-                    <div class="carousel-container">
-                        <input type="radio" name="carousel" id="slide-1" checked>
-                        <input type="radio" name="carousel" id="slide-2">
-                        <input type="radio" name="carousel" id="slide-3">
-
-                        <div class="carousel-slides">
-                            <!-- Slide 1 -->
-                            <div class="carousel-slide">
-                                <img src="../src/assets/portada.png" alt="slide 1">
-                            </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-slide">
-                                <img src="../src/assets/portada.png" alt="slide 2">
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-slide">
-                                <img src="../src/assets/portada.png" alt="slide 3">
-                            </div>
-                        </div>
-
-                        <!-- Indicadores -->
-                        <div class="carousel-dots">
-                            <label for="slide-1"></label>
-                            <label for="slide-2"></label>
-                            <label for="slide-3"></label>
-                        </div>
-                    </div>
-
-
-                    <div class="flex gap-4 mt-5">
-                        <img src="https://bancadigital.qas.banbif.com.pe/assets/img/login/candado.svg" alt="">
-                        <p class="font-regular text-neutral-light06 text-2xs">
-                            No compartas tus datos personales o claves de acceso por email, teléfono, mensajes o redes
-                            sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.
-                        </p>
-                    </div>
-                    <div class="w-full flex justify-center mt-6"><img
-                            src="https://bancadigital.qas.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div>
                 </div>
-                <p class="text-white font-medium text-3xs mt-[80px]">
+                <div style="height: 90vh;" class="flex flex-col justify-center">
+                    <div>
+                        <h1 class="pt-10 text-tittle font-semibold ruby text-white font-lato mb-6 relative z-index2">
+                            Banca por Internet Personas
+                        </h1>
+                        <div class="carousel-container">
+                            <input type="radio" name="carousel" id="slide-1" checked>
+                            <input type="radio" name="carousel" id="slide-2">
+                            <input type="radio" name="carousel" id="slide-3">
+
+                            <div class="carousel-slides">
+                                <!-- Slide 1 -->
+                                <div class="carousel-slide">
+                                    <img class="img-carrousel" src="https://i.ibb.co/423ZQZy/portada.png" alt="slide 1">
+                                </div>
+                                <!-- Slide 2 -->
+                                <div class="carousel-slide">
+                                    <img src="https://i.ibb.co/423ZQZy/portada.png" alt="slide 2">
+                                </div>
+                                <!-- Slide 3 -->
+                                <div class="carousel-slide">
+                                    <img src="https://i.ibb.co/423ZQZy/portada.png" alt="slide 3">
+                                </div>
+                            </div>
+
+                            <!-- Indicadores -->
+                            <div class="carousel-dots">
+                                <label for="slide-1"></label>
+                                <label for="slide-2"></label>
+                                <label for="slide-3"></label>
+                            </div>
+                        </div>
+
+
+                        <div class="flex gap-4 mt-5">
+                            <img src="https://bancadigital.qas.banbif.com.pe/assets/img/login/candado.svg" alt="">
+                            <p class="font-regular text-neutral-light06 text-2xs">
+                                No compartas tus datos personales o claves de acceso por email, teléfono, Mensaje o
+                                redes
+                                sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.
+                            </p>
+                        </div>
+                        <div class="w-full flex justify-center mt-6"><img
+                                src="https://bancadigital.qas.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div>
+                    </div>
+                </div>
+                <p class="text-white font-medium text-laptop">
                     © 2024 BanBif - Todos los derechos reservados.<br>Banco Interamericano de Finanzas S.A. - RUC
                     20101036813
                 </p>
@@ -371,7 +498,7 @@
         </div>
         <div class="lg:col-span-5 lg:h-full lg:bg-[#1C212D]">
             <div class="flex flex-col justify-between h-full">
-                <img style="margin-left:4rem; margin-top: 16px;" class="w-[148.75px] h-[40px] lg:hidden mb-[244px] z-10"
+                <img style="margin-left:4rem; margin-top: 40px;" class="w-[148.75px] h-[40px] lg:hidden mb-[244px] z-10"
                     src="https://bancadigital.qas.banbif.com.pe/assets/img/login/branding-inversed-on.svg"
                     alt="Logo Banbif">
                 <div class="rounded-t-md w-full bg-[#141925] lg:bg-transparent lg:h-full flex justify-center">
@@ -382,10 +509,10 @@
                                 <img src="https://bancadigital.qas.banbif.com.pe/assets/img/home/icon-menu.svg"
                                     class="hamburger" alt="">
                             </div>
-                            <div class="w-full">
+                            <div class="w-full padding-container">
                                 <div>
                                     <span
-                                        class="lg:text-xs texto-cambiado font-semibold flex justify-center text-white font-lato mb-5">
+                                        class="texto-cambiado font-semibold flex justify-center text-white font-lato mb-5 margin-text">
                                         Ingresa a tu cuenta
                                     </span>
                                     <div
@@ -475,7 +602,7 @@
                                                 <li class="fab-menu__item w-full">
                                                     <a class="fab-menu__link" href="#"
                                                         onclick="handlePhoneClick('(01) 631 9000')"><img alt="number"
-                                                            src="https://bancadigital.qas.banbif.com.pe/assets/img/users/movil-purple.svg"></a>
+                                                            src="https://bancadigital.qas.banbif.com.pe/assets/img/login/phone.svg"></a>
                                                     <div class="fab-menu__descript"><b>Atención en Lima</b><span
                                                             style="text-align: start;">(01)
                                                             631
@@ -494,17 +621,39 @@
                                                 <li class="fab-menu__item toggle"></li>
                                             </ul>
                                         </nav>
-                                        <div class="fab-menu__animation animation" style="bottom: 87px; right: 5px;">
+                                        <div class="fab-menu__animation animation"
+                                            style="bottom: 100px; right: 30px; font-size: 16px;">
                                             Conversemos
                                         </div>
-                                        <a
-                                            href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta.">
+                                        <a href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta."
+                                            target="_blank">
                                             <button class="fab-menu__toggle background-whatsapp">
-                                                <img class="img-whatsapp" alt="contact"
-                                                    src="../src/assets//whatsapp.svg">
+                                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_10482_22330)">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M23.8852 45.4857C35.8145 45.4857 45.4852 35.8151 45.4852 23.8857C45.4852 11.9564 35.8145 2.28572 23.8852 2.28572C11.9558 2.28572 2.28516 11.9564 2.28516 23.8857C2.28516 28.2648 3.58829 32.3395 5.82792 35.7433L2.28516 45.4858L12.3292 42.1378C15.6709 44.258 19.6347 45.4857 23.8852 45.4857Z"
+                                                            fill="#25D366" />
+                                                        <path
+                                                            d="M0 48L3.37 35.67C1.29 32.06 0.200012 27.97 0.200012 23.78C0.210012 10.67 10.88 0 23.99 0C30.35 0 36.32 2.48 40.81 6.98C45.3 11.48 47.77 17.45 47.77 23.81C47.77 36.92 37.1 47.59 23.99 47.59C20.01 47.59 16.08 46.59 12.61 44.69L0 48ZM13.19 40.38C16.55 42.37 19.75 43.56 23.98 43.56C34.87 43.56 43.75 34.69 43.76 23.79C43.76 12.87 34.93 4.01 23.99 4.01C13.09 4.01 4.21997 12.88 4.21997 23.78C4.20997 28.23 5.52002 31.56 7.71002 35.05L5.71002 42.35L13.19 40.39V40.38ZM35.97 29.45C35.82 29.2 35.42 29.05 34.83 28.76C34.23 28.46 31.31 27.02 30.77 26.83C30.22 26.63 29.83 26.53 29.43 27.13C29.03 27.72 27.89 29.06 27.55 29.46C27.2 29.86 26.85 29.91 26.26 29.61C25.66 29.31 23.75 28.69 21.48 26.66C19.71 25.08 18.52 23.14 18.17 22.54C17.83 21.95 18.14 21.62 18.43 21.33C18.7 21.06 19.03 20.64 19.32 20.29C19.63 19.95 19.72 19.7 19.92 19.3C20.12 18.9 20.02 18.56 19.87 18.26C19.72 17.96 18.54 15.04 18.04 13.85C17.56 12.69 17.07 12.85 16.7 12.83L15.56 12.81C15.17 12.81 14.52 12.96 13.98 13.55C13.44 14.15 11.9 15.58 11.9 18.51C11.9 21.44 14.03 24.26 14.33 24.66C14.62 25.06 18.52 31.06 24.48 33.63C25.9 34.24 27 34.61 27.87 34.88C29.29 35.33 30.59 35.27 31.61 35.12C32.75 34.95 35.13 33.68 35.62 32.29C36.12 30.9 36.12 29.71 35.97 29.46V29.45Z"
+                                                            fill="white" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_10482_22330">
+                                                            <rect width="48" height="48" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
                                             </button>
                                         </a>
                                     </div>
+                                    <p
+                                        class="hidden lg:block justify-center text-neutral-light02 text-center font-regular position text-laptop">
+                                        Recuerda que para bloquear tus tarjetas y/o reportar cargos no reconocidos
+                                        puedes llamar
+                                        a la Banca
+                                        Telefónica las 24hrs.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -762,6 +911,9 @@
         let fabMenuToggle = document.getElementById("fab-button-toggle"),
             fabMenuToggleIcon = document.querySelector("#fab-button-toggle img"),
             fabMenu = document.getElementById("fab-menu"),
+            branding = document.querySelector(".branding"),
+            zIndex = document.querySelector(".z-index"),
+            zIndex2 = document.querySelector(".z-index2"),
             fabMenuToggleHandler = fabMenuToggle?.addEventListener("click", () => {
                 fabMenu?.classList.toggle("active");
                 fabMenuToggle?.classList.toggle("active");
@@ -769,6 +921,18 @@
                 fabMenuToggle.classList.contains("active")
                     ? (fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/login/close.svg")
                     : (fabMenuToggleIcon.src = "https://bancadigital.qas.banbif.com.pe/assets/img/home/icon-menu.svg");
+
+                if (branding) {
+                    branding.classList.toggle("active", fabMenuToggle.classList.contains("active"));
+                }
+
+                if (zIndex) {
+                    zIndex.classList.toggle("active", fabMenuToggle.classList.contains("active"));
+                }
+
+                if (zIndex2) {
+                    zIndex2.classList.toggle("active", fabMenuToggle.classList.contains("active"));
+                }
 
                 document.querySelectorAll("input").forEach(input => {
                     input.disabled = fabMenuToggle.classList.contains("active");
