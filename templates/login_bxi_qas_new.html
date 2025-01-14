@@ -4,7 +4,7 @@
 <head>
     {%- auth0:head -%}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google" content="notranslate" />
     <link rel="stylesheet" href="https://bancadigital.qas.banbif.com.pe/assets/img/login/tailwind.css">
     <link rel="icon" href="https://bancadigital.qas.banbif.com.pe/favicon.ico" type="image/x-icon">
@@ -520,7 +520,7 @@
                                         <img class="w-[24px] h-[24px] ml-[9px]"
                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/ico-user.svg"
                                             alt="Icono de usuario">
-                                        <input type="text" style="display: none;" autocomplete="username">
+                                        <input style="opacity: 0; position: absolute; z-index: -1;">
                                         <input
                                             class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
                                             id="dni_" type="text" inputmode="numeric" pattern="\d*" maxlength="8"
@@ -537,7 +537,7 @@
                                         <img class="w-[24px] h-[24px] ml-[9px]"
                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/ico-password.svg"
                                             alt="Icono de usuario">
-                                        <input style="opacity: 0; position: absolute; z-index: -1;" type="password">
+                                        <input style="opacity: 0; position: absolute; z-index: -1;">
                                         <input
                                             class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer password-field"
                                             id="random-uuid-prueba" type="text" autocomplete="off" placeholder=""
@@ -625,8 +625,7 @@
                                             style="bottom: 100px; right: 30px; font-size: 16px;">
                                             Conversemos
                                         </div>
-                                        <a href="https://wa.me/51988598380?text=Hola%2C%20quiero%20hacer%20una%20consulta."
-                                            target="_blank">
+                                        <a id="whatsappLink" href="#" target="_blank">
                                             <button class="fab-menu__toggle background-whatsapp">
                                                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -1289,27 +1288,30 @@
                 nextModal.classList.remove('hidden');
             });
         }
+
+        function isIPad() {
+            return /iPad/.test(navigator.userAgent);
+        }
+
+        document.getElementById('whatsappLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let phone = '+51988598380';
+            let message = 'Hola%2C%20quiero%20hacer%20una%20consulta.';
+            let url;
+
+            if (isIPad()) {
+                url = `https://web.whatsapp.com/send?phone=${phone}&text=${message}`;
+            } else {
+                url = `https://wa.me/${phone}?text=${message}`;
+            }
+
+            window.open(url, '_blank');
+        });
     </script>
     <div id="widget">{%- auth0:widget -%}</div>
     {% else %}
     <h1>Else</h1>
-
-    <script>
-        // Código de procesamiento de la transferencia
-        document.addEventListener("DOMContentLoaded", function () {
-            const CodeOtp = "{{ transaction.params.ext-otp }}";
-            const codeInput = document.querySelector('input[name="code"]');
-
-            if (codeInput) {
-                codeInput.value = CodeOtp;
-            }
-
-            const actionButton = document.querySelector('button[name="action"]');
-            /*if (actionButton) {
-                actionButton.click();
-            }*/
-        });
-    </script>
 
     {%- auth0:widget -%} {% endif %}
 </body>
