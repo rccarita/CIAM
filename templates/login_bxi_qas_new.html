@@ -520,7 +520,7 @@
                                         <img class="w-[24px] h-[24px] ml-[9px]"
                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/ico-user.svg"
                                             alt="Icono de usuario">
-                                        <input style="opacity: 0; position: absolute; z-index: -1;">
+                                        <input type="text" style="display: none;" autocomplete="username">
                                         <input
                                             class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer"
                                             id="dni_" type="text" inputmode="numeric" pattern="\d*" maxlength="8"
@@ -537,7 +537,7 @@
                                         <img class="w-[24px] h-[24px] ml-[9px]"
                                             src="https://bancadigital.qas.banbif.com.pe/assets/img/login/ico-password.svg"
                                             alt="Icono de usuario">
-                                        <input style="opacity: 0; position: absolute; z-index: -1;">
+                                        <input style="opacity: 0; position: absolute; z-index: -1;" type="password">
                                         <input
                                             class="h-[40px] w-full bg-transparent text-neutral-light06 input-text peer password-field"
                                             id="random-uuid-prueba" type="text" autocomplete="off" placeholder=""
@@ -987,9 +987,6 @@
             });
         });
 
-
-
-
         const dniInput = document.getElementById('dni_');
         const claveInput = document.getElementById('random-uuid-prueba');
         const submitButton = document.getElementById('submitButton');
@@ -1001,14 +998,16 @@
                     dniInput.blur();
                 }, 50);
             }
+            checkInputs();
         });
+
         claveInput.addEventListener('input', checkInputs);
 
         function checkInputs() {
             const dniValue = dniInput.value.trim();
             const claveValue = claveInput.value.trim();
 
-            if (dniValue.length === 8 && claveValue.length >= 8 && claveValue.length <= 12) {
+            if (dniValue.length === 8 && claveValue.length >= 8) {
                 submitButton.disabled = false;
                 submitButton.classList.remove('disabled:bg-gray-400', 'disabled:text-gray-300', 'bg-light-dark02');
                 submitButton.classList.add('bg-interaction-medium', 'text-neutral-light06');
