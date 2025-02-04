@@ -73,7 +73,7 @@ exports.updateTemplateLogin = async (req, res) => {
 
   // Obtener el template de templates/login.html y convertirlo a texto plano:
   // const filePath = path.join(__dirname, "..", "templates", "login.html");
-  const filePath = path.join(__dirname, '..', '..', 'templates', 'login_bxi_qas_new.html');
+  const filePath = path.join(__dirname, '..', '..', 'templates', 'login_bxi_prd.html');
 
   const token = await getToken();
 

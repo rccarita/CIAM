@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://bancadigital.banbif.com.pe/assets/img/login/tailwind.css">
     <link rel="icon" href="https://bancadigital.banbif.com.pe/favicon.ico" type="image/x-icon">
     <script src="https://bancadigital.banbif.com.pe/assets/js/newrelic.js"> </script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NT3V47HM');</script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
@@ -156,7 +165,7 @@
     }
 
     .bg-main {
-        background-image: url('https://bancadigital.banbif.com.pe/assets/img/login/banner_login.png');
+        background-image: url('https://bancadigital.banbif.com.pe/assets/img/login/responsive.jpg');
         background-size: contain;
     }
 
@@ -423,6 +432,9 @@
 </style>
 
 <body class="bg-[#141925]" translate="no" cz-shortcut-listen="true">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NT3V47HM" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
     {% if prompt.name == "login" %}
     <div id="page-info">
         Screen width:<span id="screen-width"></span><br>
@@ -457,15 +469,19 @@
                             <div class="carousel-slides">
                                 <!-- Slide 1 -->
                                 <div class="carousel-slide">
-                                    <img class="img-carrousel" src="https://bancadigital.banbif.com.pe/assets/img/login/portada2.jpeg" alt="slide 1">
+                                    <img class="img-carrousel"
+                                        src="https://bancadigital.banbif.com.pe/assets/img/login/portadalogin.jpg"
+                                        alt="slide 1">
                                 </div>
                                 <!-- Slide 2 -->
                                 <div class="carousel-slide">
-                                    <img src="https://bancadigital.banbif.com.pe/assets/img/login/portada2.jpeg" alt="slide 2">
+                                    <img src="https://bancadigital.banbif.com.pe/assets/img/login/portadalogin.jpg"
+                                        alt="slide 2">
                                 </div>
                                 <!-- Slide 3 -->
                                 <div class="carousel-slide">
-                                    <img src="https://bancadigital.banbif.com.pe/assets/img/login/portada2.jpeg" alt="slide 3">
+                                    <img src="https://bancadigital.banbif.com.pe/assets/img/login/portadalogin.jpg"
+                                        alt="slide 3">
                                 </div>
                             </div>
                         </div>
@@ -479,8 +495,8 @@
                                 sociales.&nbsp;Conoce nuestras&nbsp;recomendaciones de seguridad.
                             </p>
                         </div>
-                        <!--<div class="w-full flex justify-center mt-6"><img
-                                src="https://bancadigital.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div> -->
+                        <div class="w-full flex justify-center mt-6"><img
+                                src="https://bancadigital.banbif.com.pe/assets/img/login/Dots.svg" alt=""></div>
                     </div>
                 </div>
                 <p class="text-white font-medium text-laptop">
@@ -570,7 +586,8 @@
                                             Ingresar
                                         </button>
                                     </div>
-                                    <div class="w-full h-[auto] flex items-center justify-center gap-1 relative">
+                                    <div style="margin-bottom: 40px;"
+                                        class="w-full h-[auto] flex items-center justify-center gap-1 relative">
                                         <span class="font-medium text-2xs text-neutral-light06">¿No tienes una
                                             cuenta?</span>
                                         <div class="font-bold text-2xs cursor-pointer text-interaction-light02 hover:text-[#E9DEFD] active:text-[#925AF5]"
@@ -856,6 +873,7 @@
                     }
                     ),
                     e.addEventListener("click", () => {
+                        pushGTMEvent('btnModalLoginRC','Olvidaste tu contraseña');
                         s.classList.toggle("hidden")
                     }
                     ),
@@ -870,6 +888,7 @@
                 }
                 ),
                 t.addEventListener("click", () => {
+                    pushGTMEvent('btnModalLoginRA','Registrate aquí')
                     o.classList.toggle("hidden")
                 }
                 )
@@ -907,6 +926,7 @@
             zIndex = document.querySelector(".z-index"),
             zIndex2 = document.querySelector(".z-index2"),
             fabMenuToggleHandler = fabMenuToggle?.addEventListener("click", () => {
+                pushGTMEvent('fab-button-toggle', 'Menú')
                 fabMenu?.classList.toggle("active");
                 fabMenuToggle?.classList.toggle("active");
 
@@ -1147,6 +1167,7 @@
 
             const actionButton = document.querySelector('button[name="action"]');
             if (actionButton) {
+                pushGTMEvent(submitButton, 'Ingresar')
                 actionButton.click();
             }
         });
@@ -1226,7 +1247,7 @@
             var isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
 
             var message = encodeURIComponent("Hola, quiero hacer una consulta.");
-            var phoneWhatsapp = '+51988598380';
+            var phoneWhatsapp = '51988598380';
 
             if (isMobile && !isSafari) {
                 //alert("entra en vista movil")
@@ -1286,6 +1307,7 @@
         }
 
         document.getElementById('whatsappLink').addEventListener('click', function (event) {
+            pushGTMEvent('whatsappLink', 'Whatsapp')
             event.preventDefault();
 
             let phone = '+51988598380';
@@ -1300,6 +1322,35 @@
 
             window.open(url, '_blank');
         });
+
+        /**
+         * Función para registrar eventos en el dataLayer de Google Tag Manager.
+         * @param {string} eventName - Nombre del evento (por ejemplo, "login").
+         * @param {object} options - Datos adicionales para personalizar el evento.
+         */
+        function pushGTMEvent(id, texto) {
+            const gtmTag = {
+                'event': "login",   // Tipo de evento
+                'url': window.location.href,  // URL de la página
+                'pagePath': window.location.pathname,  // Ruta de la página
+                'pageName': "Login:Paso1:Default",  // Nombre de la página
+                'previous_screen': "Login:Step0:Initial", // Pantalla anterior
+                'flujo': "Login",  // Nombre del flujo
+                'paso': "Paso1",  // Paso del flujo
+                'subpaso': "Default",  // Subpaso del flujo
+                'tipo_flujo': "happypath",  // Tipo de flujo (puede ser 'happypath' o 'errorpath', dependiendo del flujo)
+                'tipo_elemento': 'boton',  // Tipo de evento (visualización de pantalla)
+                'tipo_evento': "login",  // Tipo de evento
+                'texto_elemento': texto,
+                'method': id
+            }
+
+            // Empujar el objeto gtmTag al dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(gtmTag);
+        }
+
+
     </script>
     <div id="widget">{%- auth0:widget -%}</div>
     {% else %}
